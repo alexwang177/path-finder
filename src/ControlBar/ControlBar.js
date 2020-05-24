@@ -9,26 +9,26 @@ function ControlBar() {
                 <h1>Visualizer</h1>
             </div>
 
-            <div className="control-bar-selectors">
+            <div className="control-bar-selectors" id="algo-selector">
                 <select> 
                     <option>Depth-First Search</option>
                     <option>Breadth-First Search</option>
                 </select>
             </div>
 
-            <div className="control-bar-selectors">
+            <div className="control-bar-selectors" id="grid-selector">
                 <label>
                     # Rows <input type="text" />
                 </label>
             </div>
 
-            <div className="control-bar-selectors">
+            <div className="control-bar-selectors" id="grid-selector">
                 <label>
                     # Columns <input type="text" />
                 </label>
             </div>
 
-            <div className="control-bar-selectors">
+            <div className="control-bar-selectors" id="mark-selector">
                 <select> 
                     <option>Start</option>
                     <option>End</option>
@@ -36,7 +36,7 @@ function ControlBar() {
                 </select>
             </div>
 
-            <button>Visualize!</button>
+            <button id="visualize-button">Visualize!</button>
         </header>
     )
 }

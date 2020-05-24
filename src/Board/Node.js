@@ -2,7 +2,7 @@ import React from 'react'
 
 function Node() {
     return(
-        <h2>Node</h2>
+        <div className="node-div">Node</div>
     )
 }
 

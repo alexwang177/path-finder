@@ -9,14 +9,29 @@ class App extends React.Component {
 
   constructor() {
     super()
-    this.state = {}
+    this.state = {
+      grid:  [[0,0,0,0,0,0,0,0,0,0],
+              [0,0,0,0,0,0,0,0,0,0],
+              [0,0,0,0,0,0,0,0,0,0],
+              [0,0,0,0,0,0,0,0,0,0],
+              [0,0,0,0,0,0,0,0,0,0],
+              [0,0,0,0,0,0,0,0,0,0],
+              [0,0,0,0,0,0,0,0,0,0],
+              [0,0,0,0,0,0,0,0,0,0],
+              [0,0,0,0,0,0,0,0,0,0],
+              [0,0,0,0,0,0,0,0,0,0]],
+      numRows: 10,
+      numCols: 10,
+      algorithm: "dfs",
+      marker: "start"
+    }
   }
 
   render() {
     return (
       <div>
         <ControlBar/>
-        <Board /> 
+        <Board grid={this.state.grid}/> 
       </div>
     )
   }

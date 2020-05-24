@@ -1,8 +1,13 @@
 import React from 'react'
 
-function Board() {
+function Board(props) {
+
+    const grid = props.grid;
+    console.log(grid);
+
     return(
-        <h1>Board</h1>
+        <div className="board">Board
+        </div>
     )
 }
 
