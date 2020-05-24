@@ -1,0 +1,12 @@
+.control-bar {
+    background-color: teal;
+    color: white;
+    padding: 10px;
+
+    display: flex
+}
+
+.control-bar-selectors {
+    background-color: red;
+    margin: 30px;
+}
