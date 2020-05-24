@@ -31,7 +31,11 @@ class App extends React.Component {
     return (
       <div>
         <ControlBar/>
-        <Board grid={this.state.grid}/> 
+        <Board 
+          grid={this.state.grid} 
+          numCols={this.state.numCols} 
+          numRows={this.state.numRows}
+        /> 
       </div>
     )
   }
