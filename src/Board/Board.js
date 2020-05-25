@@ -14,14 +14,15 @@ function Board(props) {
         const displayRow = row.map((item, colIndex) => {
             return (<Node key={(rowIndex * numCols) + colIndex + 1}/>)
         })
-        
+
         return (
-            displayRow
+            <div key={rowIndex} className="grid-row">{displayRow}</div>
         )
     })
 
     return(
-        <div className="board">{displayGrid}
+        <div className="board-container">
+            <div className="board">{displayGrid}</div>
         </div>
     )
 }
