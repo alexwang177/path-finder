@@ -9,22 +9,31 @@ class App extends React.Component {
 
   constructor() {
     super()
+
+    const initRows = 22;
+    const initCols = 51;
+
     this.state = {
-      grid:  [[0,0,0,0,0,0,0,0,0,0],
-              [0,0,0,0,0,0,0,0,0,0],
-              [0,0,0,0,0,0,0,0,0,0],
-              [0,0,0,0,0,0,0,0,0,0],
-              [0,0,0,0,0,0,0,0,0,0],
-              [0,0,0,0,0,0,0,0,0,0],
-              [0,0,0,0,0,0,0,0,0,0],
-              [0,0,0,0,0,0,0,0,0,0],
-              [0,0,0,0,0,0,0,0,0,0],
-              [0,0,0,0,0,0,0,0,0,0]],
-      numRows: 10,
-      numCols: 10,
+      numRows: initRows,
+      numCols: initCols,
+      grid: this.createGrid(initRows, initCols),
       algorithm: "dfs",
       marker: "start"
     }
+  }
+
+  createGrid = (numRows, numCols) => {
+    const initGrid = []
+
+    for(let i = 0; i < numRows; i++){
+      const row = []
+      for(let j = 0; j < numCols; j++){
+        row.push(0)
+      }
+      initGrid.push(row)
+    }
+
+    return initGrid
   }
 
   render() {
