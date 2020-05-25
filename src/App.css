@@ -6,15 +6,18 @@ html, body {
 /* App Container CSS */
 .app {
     height: 100vh;
-    display: grid;
-    grid-template-rows: 20% 80%;
+    /*display: grid;
+    grid-template-rows: 20% 80%;*/
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 /* Control Bar CSS*/
 .control-bar {
     background-color: teal;
     color: white;
-    padding: 10px;
+    /*padding: 10px;*/
 
     display: flex;
     justify-content: space-around;
@@ -35,6 +38,8 @@ html, body {
 
 /* Board CSS */
 .board-container {
+    flex-grow: 1;
+
     display: flex;
     background-color: #f5f5f5;
     justify-content: center;
@@ -44,7 +49,7 @@ html, body {
 .board {
     background-color: whitesmoke;
     border: 1px solid rgb(240, 194, 194);
-    
+    margin: 10px;
 }
 
 .grid-row {

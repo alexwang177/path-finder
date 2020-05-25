@@ -10,7 +10,7 @@ class App extends React.Component {
   constructor() {
     super()
 
-    const initRows = 27;
+    const initRows = 28;
     const initCols = 64;
 
     this.state = {

@@ -7,7 +7,7 @@ function Board(props) {
     const numRows = props.numRows
     const numCols = props.numCols
 
-    console.log(grid);
+    //console.log(grid);
 
     const displayGrid = grid.map((row, rowIndex) => {
 
