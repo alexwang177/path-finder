@@ -42,7 +42,8 @@ html, body {
 }
 
 .board {
-    background-color: gray;
+    background-color: whitesmoke;
+    border: 1px solid rgb(240, 194, 194);
     
 }
 
@@ -54,8 +55,7 @@ html, body {
 .node-div {
     height: 20px;
     width: 20px;
-    background-color: burlywood;
-    border-style: solid;
-    border-color: black;
-    margin: 1px;
+    background-color: whitesmoke;
+    border: 1px solid rgb(240, 194, 194);
+    margin: 0;
 }
