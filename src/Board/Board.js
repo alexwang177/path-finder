@@ -12,7 +12,7 @@ function Board(props) {
     const displayGrid = grid.map((row, rowIndex) => {
 
         const displayRow = row.map((item, colIndex) => {
-            return (<Node key={(rowIndex * numCols) + colIndex + 1}/>)
+            return (<Node key={(rowIndex * numCols) + colIndex + 1} marker={props.marker}/>)
         })
 
         return (

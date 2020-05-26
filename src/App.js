@@ -84,6 +84,7 @@ class App extends React.Component {
           grid={this.state.grid} 
           numCols={this.state.numCols} 
           numRows={this.state.numRows}
+          marker={this.state.marker}
         /> 
       </div>
     )

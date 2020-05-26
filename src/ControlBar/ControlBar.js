@@ -18,9 +18,9 @@ function ControlBar(props) {
 
             <div className="control-bar-selectors" id="mark-selector">
                 <select name="marker" value={props.marker} onChange={props.handleFormChange}> 
-                    <option>Start</option>
-                    <option>End</option>
-                    <option>Wall</option>
+                    <option value="start">Start</option>
+                    <option value="end">End</option>
+                    <option value="wall">Wall</option>
                 </select>
             </div>
 

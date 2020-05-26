@@ -69,3 +69,19 @@ html, body {
     border: 1px solid rgb(240, 194, 194);
     margin: 0;
 }
+
+.start-hover {
+    background-color: green;
+}
+
+.end-hover {
+    background-color: red;
+}
+
+.wall-hover {
+    background-color: black;
+}
+
+/*.node-div:hover {
+    background-color: red;
+}*/
