@@ -42,7 +42,7 @@ class App extends React.Component {
 
     const {name, value} = e.target
 
-    if(name === "rowInput" || name === "colInput") {
+    if(name === "rowInput" || name === "colInput" || name === "algorithm" || name === "marker") {
       this.setState({ [name] : value })
     }
   }
@@ -77,6 +77,8 @@ class App extends React.Component {
           colInput={this.state.colInput}
           handleFormButton={this.handleFormButton}
           handleFormChange={this.handleFormChange}
+          algorithm={this.state.algorithm}
+          marker={this.state.marker}
         />
         <Board 
           grid={this.state.grid} 

@@ -10,14 +10,14 @@ function ControlBar(props) {
             </div>
 
             <div className="control-bar-selectors" id="algo-selector">
-                <select> 
-                    <option>Depth-First Search</option>
-                    <option>Breadth-First Search</option>
+                <select name="algorithm" value={props.algorithm} onChange={props.handleFormChange}> 
+                    <option value="dfs">Depth-First Search</option>
+                    <option value="bfs">Breadth-First Search</option>
                 </select>
             </div>
 
             <div className="control-bar-selectors" id="mark-selector">
-                <select> 
+                <select name="marker" value={props.marker} onChange={props.handleFormChange}> 
                     <option>Start</option>
                     <option>End</option>
                     <option>Wall</option>
