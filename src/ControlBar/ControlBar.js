@@ -1,6 +1,6 @@
 import React from 'react'
 
-function ControlBar() {
+function ControlBar(props) {
     return(
         <header className="control-bar">
 
@@ -26,18 +26,18 @@ function ControlBar() {
 
             <div className="control-bar-selectors" id="grid-selector">
                 <label>
-                    # Rows <input type="text" />
+                    # Rows <input type="text" name="rowInput" value={props.rowInput} onChange={props.handleFormChange}/>
                 </label>
             </div>
 
             <div className="control-bar-selectors" id="grid-selector">
                 <label>
-                    # Columns <input type="text" />
+                    # Columns <input type="text" name="colInput" value={props.colInput} onChange={props.handleFormChange}/>
                 </label>
             </div>
 
             <div className="control-bar-selectors" id="grid-selector">
-                <button>Update Grid Size</button>
+                <button name="sizeButton" onClick={props.handleFormButton}>Update Grid Size</button>
             </div>
 
             <div className="control-bar-selectors" id="grid-selector">

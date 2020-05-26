@@ -18,7 +18,9 @@ class App extends React.Component {
       numCols: initCols,
       grid: this.createGrid(initRows, initCols),
       algorithm: "dfs",
-      marker: "start"
+      marker: "start",
+      rowInput: "",
+      colInput: ""
     }
   }
 
@@ -36,10 +38,48 @@ class App extends React.Component {
     return initGrid
   }
 
+  /*updateGridSize = () => {
+    this.setState({
+      numRows: 10,
+      numCols: 10,
+      grid: this.createGrid(10, 10)
+    })
+  }*/
+
+  handleFormChange = (e) => {
+
+    const {name, value} = e.target
+
+    if(name === "rowInput" || name === "colInput") {
+      this.setState({ [name] : value })
+    }
+  }
+
+  handleFormButton = (e) => {
+    const {name} = e.target
+
+    if(name === "sizeButton") {
+      this.setState((prevState) => {
+        return {
+          numRows: prevState.rowInput,
+          numCols: prevState.colInput,
+          grid: this.createGrid(prevState.rowInput, prevState.colInput),
+          rowInput: "",
+          colInput: ""
+        }
+      })
+    }
+  }
+
   render() {
     return (
       <div className="app">
-        <ControlBar/>
+        <ControlBar 
+          rowInput={this.state.rowInput}
+          colInput={this.state.colInput}
+          handleFormButton={this.handleFormButton}
+          handleFormChange={this.handleFormChange}
+        />
         <Board 
           grid={this.state.grid} 
           numCols={this.state.numCols} 
