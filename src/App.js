@@ -38,14 +38,6 @@ class App extends React.Component {
     return initGrid
   }
 
-  /*updateGridSize = () => {
-    this.setState({
-      numRows: 10,
-      numCols: 10,
-      grid: this.createGrid(10, 10)
-    })
-  }*/
-
   handleFormChange = (e) => {
 
     const {name, value} = e.target
@@ -59,6 +51,12 @@ class App extends React.Component {
     const {name} = e.target
 
     if(name === "sizeButton") {
+
+      if(isNaN(this.state.rowInput) || isNaN(this.state.colInput) || this.state.rowInput === "" || this.state.colInput === ""){
+        alert("Please enter a valid input.")
+        return
+      } 
+
       this.setState((prevState) => {
         return {
           numRows: prevState.rowInput,
