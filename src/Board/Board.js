@@ -12,13 +12,26 @@ function Board(props) {
     const displayGrid = grid.map((row, rowIndex) => {
 
         const displayRow = row.map((item, colIndex) => {
-            return (<Node key={(rowIndex * numCols) + colIndex + 1} marker={props.marker}/>)
+            return (<Node 
+                        key={rowIndex + " " + colIndex} 
+                        location={rowIndex + " " + colIndex} 
+                        marker={props.marker}
+                        nodeValue={props.grid[rowIndex][colIndex]}
+                        handleNodeClick={props.handleNodeClick}
+                        />)
         })
 
         return (
-            <div key={rowIndex} className="grid-row">{displayRow}</div>
+            <div 
+                key={rowIndex} 
+                className="grid-row"
+            >
+                {displayRow}
+            </div>
         )
     })
+
+    //console.log("board render");
 
     return(
         <div className="board-container">

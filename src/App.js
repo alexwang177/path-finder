@@ -3,6 +3,8 @@ import React from 'react';
 import ControlBar from './ControlBar/ControlBar'
 import Board from './Board/Board'
 
+import { START, END, WALL, VISITED, EMPTY} from './Constants/constants'
+
 import './App.css'
 
 class App extends React.Component {
@@ -10,8 +12,8 @@ class App extends React.Component {
   constructor() {
     super()
 
-    const initRows = 28;
-    const initCols = 64;
+    const initRows = 10
+    const initCols = 10
 
     this.state = {
       numRows: initRows,
@@ -69,6 +71,41 @@ class App extends React.Component {
     }
   }
 
+  handleNodeClick = (rowIndex, colIndex) => {
+    this.setState((prevState) => {
+      const newGrid = prevState.grid.map((row) => row.slice())
+
+      if(prevState.marker === "start") {
+        for(let i = 0; i < newGrid.length; i++){
+          for(let j = 0; j < newGrid[0].length; j++){
+            if(newGrid[i][j] === START)
+              newGrid[i][j] = EMPTY
+          }
+        }
+
+        newGrid[rowIndex][colIndex] = START
+      }
+      else if(prevState.marker === "end") {
+        for(let i = 0; i < newGrid.length; i++){
+          for(let j = 0; j < newGrid[0].length; j++){
+            if(newGrid[i][j] === END)
+              newGrid[i][j] = EMPTY
+          }
+        }
+
+        newGrid[rowIndex][colIndex] = END
+
+      }
+      else if(prevState.marker === "wall") {
+        newGrid[rowIndex][colIndex] = WALL 
+      }
+
+      return {
+        grid: newGrid
+      }
+    })
+  }
+
   render() {
     return (
       <div className="app">
@@ -85,6 +122,7 @@ class App extends React.Component {
           numCols={this.state.numCols} 
           numRows={this.state.numRows}
           marker={this.state.marker}
+          handleNodeClick={this.handleNodeClick}
         /> 
       </div>
     )
