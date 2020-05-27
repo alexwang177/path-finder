@@ -86,7 +86,23 @@ export const handleFormButton = (e, app) => {
         }
       })
     }
-  }
+
+    if(name === "clearButton") {
+      clearGrid(app)
+    }
+}
+
+const clearGrid = (app) => {
+  console.log("clear grid")
+
+  app.setState((prevState) => {
+
+      return {
+        grid: app.createGrid(prevState.numRows, prevState.numCols)
+      }
+    })
+}
+
 
 export const handleFormChange = (e, app) => {
 

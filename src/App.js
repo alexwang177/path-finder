@@ -40,6 +40,9 @@ class App extends React.Component {
       initGrid.push(row)
     }
 
+    initGrid[Math.round(numRows / 2)][Math.round(numCols / 4)-1] = START
+    initGrid[Math.round(numRows / 2)][Math.round((numCols / 4) * 3) - 1] = END
+
     return initGrid
   }
 
@@ -80,7 +83,6 @@ class App extends React.Component {
           handleMouseEnter={this.handleMouseEnter}
           updateGrid={this.updateGrid}
         />
-        <h1>{this.state.mouseIsDown ? "down" : "up"}</h1>
       </div>
     )
   }

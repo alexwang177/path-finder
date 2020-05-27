@@ -41,7 +41,7 @@ function ControlBar(props) {
             </div>
 
             <div className="control-bar-selectors" id="grid-selector">
-                <button>Clear Grid</button>
+                <button name="clearButton" onClick={props.handleFormButton}>Clear Grid</button>
             </div>
 
             <button id="visualize-button">Visualize!</button>
