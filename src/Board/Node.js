@@ -5,16 +5,23 @@ class Node extends React.Component {
 
     constructor() {
         super()
-        this.state = {
-            isHover: false
-        }
+        this.state = {}
     }
 
-    handleMouseEnter = () => {
-        this.setState({
-            isHover: 
-            true
-        })
+    shouldComponentUpdate(nextProps, nextState) {
+        if(nextProps.nodeValue != this.props.nodeValue || nextState.isHover != this.state.isHover){
+            return true
+        }
+
+        return false
+    }
+
+    handleMouseEnter = (e) => {
+        /*this.setState({
+            isHover: true
+        })*/
+
+        e.target.classList.toggle(this.props.marker + "-hover")
 
         const location = this.props.location.split(" ")
 
@@ -24,10 +31,11 @@ class Node extends React.Component {
         this.props.handleMouseEnter(location[0], location[1])
     }
 
-    handleMouseLeave = () => {
-        this.setState({
+    handleMouseLeave = (e) => {
+        /*this.setState({
             isHover: false
-        })
+        })*/
+        e.target.classList.toggle(this.props.marker + "-hover")
     }
 
     handleClick = () => {
@@ -52,14 +60,13 @@ class Node extends React.Component {
             className += " wall-node"
         }
 
-        if(this.state.isHover) {
-            className += " " + this.props.marker + "-hover"
-        }
-
         return className
     }
 
     render() {
+
+        const location = this.props.location.split(" ")
+        console.log("node render " + location[0] + " " + location[1])
 
         const className = this.nodeDisplay()
 
@@ -69,7 +76,6 @@ class Node extends React.Component {
                 onMouseEnter={this.handleMouseEnter} 
                 onMouseLeave={this.handleMouseLeave}
                 onClick={this.handleClick}
-                onMouseEnter={this.handleMouseEnter}
             >    
             </div>
         )

@@ -61,6 +61,9 @@ class App extends React.Component {
       } 
 
       this.setState((prevState) => {
+
+
+
         return {
           numRows: prevState.rowInput,
           numCols: prevState.colInput,
@@ -137,6 +140,19 @@ class App extends React.Component {
     })
   }
 
+  /*updateGrid = (rowIndex, colIndex, newNodeValue) => {
+    this.setState((prevState) => {
+      const newGrid = prevState.grid.map((row) => row.slice())
+      newGrid[rowIndex][colIndex] = newNodeValue
+
+      return {
+        grid: newGrid
+      }
+    })
+
+    console.log(this.state.grid)
+  }*/
+
   componentDidMount = () => {
     window.addEventListener('mousedown', this.handleMouseDown)
     window.addEventListener('mouseup', this.handleMouseUp)
@@ -160,6 +176,7 @@ class App extends React.Component {
           marker={this.state.marker}
           handleNodeClick={this.handleNodeClick}
           handleMouseEnter={this.handleMouseEnter}
+          updateGrid={this.updateGrid}
         />
         <h1>{this.state.mouseIsDown ? "down" : "up"}</h1>
       </div>
