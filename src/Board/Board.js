@@ -27,7 +27,6 @@ class Board extends React.Component {
                             nodeValue={this.props.grid[rowIndex][colIndex]}
                             handleNodeClick={this.props.handleNodeClick}
                             handleMouseEnter={this.props.handleMouseEnter}
-                            updateGrid={this.props.updateGrid}
                             />)
             })
     

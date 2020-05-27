@@ -9,7 +9,9 @@ class Node extends React.Component {
     }
 
     shouldComponentUpdate(nextProps, nextState) {
-        if(nextProps.nodeValue != this.props.nodeValue || nextState.isHover != this.state.isHover){
+        if(nextProps.nodeValue == this.props.nodeValue) return false
+
+        if(nextProps.nodeValue != this.props.nodeValue) {
             return true
         }
 
@@ -17,10 +19,6 @@ class Node extends React.Component {
     }
 
     handleMouseEnter = (e) => {
-        /*this.setState({
-            isHover: true
-        })*/
-
         e.target.classList.toggle(this.props.marker + "-hover")
 
         const location = this.props.location.split(" ")
@@ -67,12 +65,13 @@ class Node extends React.Component {
 
         const location = this.props.location.split(" ")
         console.log("node render " + location[0] + " " + location[1])
+        console.log(this.props.nodeValue)
 
-        const className = this.nodeDisplay()
+        //const className = this.nodeDisplay()
 
         return(
             <div
-                className={className} 
+                className={this.nodeDisplay()} 
                 onMouseEnter={this.handleMouseEnter} 
                 onMouseLeave={this.handleMouseLeave}
                 onClick={this.handleClick}
