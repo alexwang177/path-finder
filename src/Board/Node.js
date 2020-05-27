@@ -15,6 +15,13 @@ class Node extends React.Component {
             isHover: 
             true
         })
+
+        const location = this.props.location.split(" ")
+
+        //console.log(location)
+        //console.log(this.props.nodeValue)
+    
+        this.props.handleMouseEnter(location[0], location[1])
     }
 
     handleMouseLeave = () => {
@@ -62,6 +69,7 @@ class Node extends React.Component {
                 onMouseEnter={this.handleMouseEnter} 
                 onMouseLeave={this.handleMouseLeave}
                 onClick={this.handleClick}
+                onMouseEnter={this.handleMouseEnter}
             >    
             </div>
         )

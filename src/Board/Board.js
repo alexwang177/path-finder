@@ -18,6 +18,7 @@ function Board(props) {
                         marker={props.marker}
                         nodeValue={props.grid[rowIndex][colIndex]}
                         handleNodeClick={props.handleNodeClick}
+                        handleMouseEnter={props.handleMouseEnter}
                         />)
         })
 
@@ -35,7 +36,12 @@ function Board(props) {
 
     return(
         <div className="board-container">
-            <div className="board">{displayGrid}</div>
+            <div className="board" 
+                 onMouseDown={props.handleMouseDown} 
+                 onMouseUp={props.handleMouseUp}
+            >   
+                {displayGrid}
+            </div>
         </div>
     )
 }

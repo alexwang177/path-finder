@@ -22,7 +22,8 @@ class App extends React.Component {
       algorithm: "dfs",
       marker: "start",
       rowInput: "",
-      colInput: ""
+      colInput: "",
+      mouseIsDown: false
     }
   }
 
@@ -97,13 +98,48 @@ class App extends React.Component {
 
       }
       else if(prevState.marker === "wall") {
-        newGrid[rowIndex][colIndex] = WALL 
+
+        newGrid[rowIndex][colIndex] === WALL ? 
+          newGrid[rowIndex][colIndex] = EMPTY :
+          newGrid[rowIndex][colIndex] = WALL
       }
 
       return {
         grid: newGrid
       }
     })
+  }
+
+  handleMouseDown = () => {
+    this.setState({ mouseIsDown: true })
+  }
+
+  handleMouseUp = () => {
+    this.setState({ mouseIsDown: false })
+  }
+
+  handleMouseEnter = (rowIndex, colIndex) => {
+    if(!this.state.mouseIsDown) return
+
+    this.setState((prevState) => {
+      const newGrid = prevState.grid.map((row) => row.slice())
+
+      if(prevState.marker === "wall") {
+
+        newGrid[rowIndex][colIndex] === WALL ? 
+          newGrid[rowIndex][colIndex] = EMPTY :
+          newGrid[rowIndex][colIndex] = WALL
+      }
+
+      return {
+        grid: newGrid
+      }
+    })
+  }
+
+  componentDidMount = () => {
+    window.addEventListener('mousedown', this.handleMouseDown)
+    window.addEventListener('mouseup', this.handleMouseUp)
   }
 
   render() {
@@ -123,7 +159,9 @@ class App extends React.Component {
           numRows={this.state.numRows}
           marker={this.state.marker}
           handleNodeClick={this.handleNodeClick}
-        /> 
+          handleMouseEnter={this.handleMouseEnter}
+        />
+        <h1>{this.state.mouseIsDown ? "down" : "up"}</h1>
       </div>
     )
   }
