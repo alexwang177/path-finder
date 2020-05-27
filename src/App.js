@@ -5,6 +5,8 @@ import Board from './Board/Board'
 
 import { START, END, WALL, VISITED, EMPTY} from './Constants/constants'
 
+import { handleMouseDown, handleMouseUp, handleMouseEnter, handleNodeClick, handleFormButton, handleFormChange } from './EventHandlers/App/appHandlers'
+
 import './App.css'
 
 class App extends React.Component {
@@ -41,115 +43,17 @@ class App extends React.Component {
     return initGrid
   }
 
-  handleFormChange = (e) => {
+  handleFormChange = (e) => handleFormChange(e, this)
 
-    const {name, value} = e.target
+  handleFormButton = (e) => handleFormButton(e, this)
 
-    if(name === "rowInput" || name === "colInput" || name === "algorithm" || name === "marker") {
-      this.setState({ [name] : value })
-    }
-  }
+  handleNodeClick = (rowIndex, colIndex) => handleNodeClick(rowIndex, colIndex, this)
 
-  handleFormButton = (e) => {
-    const {name} = e.target
+  handleMouseDown = () => handleMouseDown(this)
 
-    if(name === "sizeButton") {
+  handleMouseUp = () => handleMouseUp(this)
 
-      if(isNaN(this.state.rowInput) || isNaN(this.state.colInput) || this.state.rowInput === "" || this.state.colInput === ""){
-        alert("Please enter a valid input.")
-        return
-      } 
-
-      this.setState((prevState) => {
-
-        return {
-          numRows: prevState.rowInput,
-          numCols: prevState.colInput,
-          grid: this.createGrid(prevState.rowInput, prevState.colInput),
-          rowInput: "",
-          colInput: ""
-        }
-      })
-    }
-  }
-
-  handleNodeClick = (rowIndex, colIndex) => {
-    this.setState((prevState) => {
-      const newGrid = prevState.grid.map((row) => row.slice())
-
-      if(prevState.marker === "start") {
-        for(let i = 0; i < newGrid.length; i++){
-          for(let j = 0; j < newGrid[0].length; j++){
-            if(newGrid[i][j] === START)
-              newGrid[i][j] = EMPTY
-          }
-        }
-
-        newGrid[rowIndex][colIndex] = START
-      }
-      else if(prevState.marker === "end") {
-        for(let i = 0; i < newGrid.length; i++){
-          for(let j = 0; j < newGrid[0].length; j++){
-            if(newGrid[i][j] === END)
-              newGrid[i][j] = EMPTY
-          }
-        }
-
-        newGrid[rowIndex][colIndex] = END
-
-      }
-      else if(prevState.marker === "wall") {
-
-        newGrid[rowIndex][colIndex] === WALL ? 
-          newGrid[rowIndex][colIndex] = EMPTY :
-          newGrid[rowIndex][colIndex] = WALL
-      }
-
-      return {
-        grid: newGrid
-      }
-    })
-  }
-
-  handleMouseDown = () => {
-    this.setState({ mouseIsDown: true })
-  }
-
-  handleMouseUp = () => {
-    this.setState({ mouseIsDown: false })
-  }
-
-  handleMouseEnter = (rowIndex, colIndex) => {
-    if(!this.state.mouseIsDown) return
-
-    this.setState((prevState) => {
-      const newGrid = prevState.grid.map((row) => row.slice())
-
-      if(prevState.marker === "wall") {
-
-        newGrid[rowIndex][colIndex] === WALL ? 
-          newGrid[rowIndex][colIndex] = EMPTY :
-          newGrid[rowIndex][colIndex] = WALL
-      }
-
-      return {
-        grid: newGrid
-      }
-    })
-  }
-
-  /*updateGrid = (rowIndex, colIndex, newNodeValue) => {
-    this.setState((prevState) => {
-      const newGrid = prevState.grid.map((row) => row.slice())
-      newGrid[rowIndex][colIndex] = newNodeValue
-
-      return {
-        grid: newGrid
-      }
-    })
-
-    console.log(this.state.grid)
-  }*/
+  handleMouseEnter = (rowIndex, colIndex) => handleMouseEnter(rowIndex, colIndex, this)
 
   componentDidMount = () => {
     window.addEventListener('mousedown', this.handleMouseDown)

@@ -1,6 +1,8 @@
 import React from 'react'
 import { START, END, WALL, VISITED, EMPTY} from '../Constants/constants'
 
+import { handleClick, handleMouseEnter, handleMouseLeave } from '../EventHandlers/Node/nodeHandlers'
+
 class Node extends React.Component {
 
     constructor() {
@@ -8,9 +10,7 @@ class Node extends React.Component {
         this.state = {}
     }
 
-    shouldComponentUpdate(nextProps, nextState) {
-        //if(nextProps.nodeValue == this.props.nodeValue) return false
-
+    shouldComponentUpdate(nextProps) {
         if(nextProps.nodeValue != this.props.nodeValue) {
             return true
         }
@@ -18,34 +18,12 @@ class Node extends React.Component {
         return false
     }
 
-    handleMouseEnter = (e) => {
+    handleMouseEnter = (e) => handleMouseEnter(e, this.props)
 
-        e.target.classList.add(this.props.marker + "-hover")
+    handleMouseLeave = (e) => handleMouseLeave(e, this.props)
 
-        const location = this.props.location.split(" ")
-
-        //console.log(location)
-        //console.log(this.props.nodeValue)
+    handleClick = () => handleClick(this.props)
     
-        this.props.handleMouseEnter(location[0], location[1])
-    }
-
-    handleMouseLeave = (e) => {
-        /*this.setState({
-            isHover: false
-        })*/
-        e.target.classList.remove(this.props.marker + "-hover")
-    }
-
-    handleClick = () => {
-        const location = this.props.location.split(" ")
-
-        console.log(location)
-        console.log(this.props.nodeValue)
-    
-        this.props.handleNodeClick(location[0], location[1])
-    }
-
     nodeDisplay = () => {
         let className = "node-div"
 
