@@ -12,8 +12,8 @@ class App extends React.Component {
   constructor() {
     super()
 
-    const initRows = 10
-    const initCols = 10
+    const initRows = 30
+    const initCols = 60
 
     this.state = {
       numRows: initRows,
@@ -61,8 +61,6 @@ class App extends React.Component {
       } 
 
       this.setState((prevState) => {
-
-
 
         return {
           numRows: prevState.rowInput,

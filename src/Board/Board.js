@@ -1,7 +1,7 @@
 import React from 'react'
 import Node from './Node'
 
-class Board extends React.Component {
+/*class Board extends React.Component {
 
     constructor() {
         super()
@@ -55,9 +55,9 @@ class Board extends React.Component {
     }
 }
 
-export default Board
+export default Board*/
 
-/*function Board(props) {
+function Board(props) {
 
     const grid = props.grid
     const numRows = props.numRows
@@ -100,4 +100,6 @@ export default Board
             </div>
         </div>
     )
-}*/
+}
+
+export default Board
