@@ -99,21 +99,26 @@ class App extends React.Component {
     visited[row][col] = true
 
     // Set current node to visited
-    this.setState((prevState) => {
-      const newGrid = prevState.grid.map((row) => row.slice())
-      newGrid[row][col] = VISITED
 
-      return {
-        grid: newGrid
-      }
-    }, () => {
-      setTimeout(this.dfs(row - 1, col, visited), 2000)
-      setTimeout(this.dfs(row + 1, col, visited), 2000)
-      setTimeout(this.dfs(row, col - 1, visited), 2000)
-      setTimeout(this.dfs(row, col + 1, visited), 2000)
-    })
+    setTimeout(() => {
 
-    console.log(row + " " + col)
+      this.setState((prevState) => {
+        const newGrid = prevState.grid.map((row) => row.slice())
+        newGrid[row][col] = VISITED
+  
+        return {
+          grid: newGrid
+        }
+      }, () => {
+        this.dfs(row - 1, col, visited)
+        this.dfs(row + 1, col, visited)
+        this.dfs(row, col - 1, visited)
+        this.dfs(row, col + 1, visited)
+      });
+
+    }, 0);
+
+    console.log("visited " + row + " " + col)
   }
 
   componentDidMount = () => {
