@@ -91,34 +91,38 @@ class App extends React.Component {
 
   }
 
-  dfs = (row, col, visited) => {
-    if(row < 0 || col < 0 || row >= this.state.numRows || col >= this.state.numCols) return;
+  dfs = (startRow, startCol, visited) => {
+    let stack = []
+    stack.push([startRow, startCol])
 
-    if(visited[row][col]) return;
+    while(stack.length !== 0) {
+      const loc = stack.pop()
+      const row = loc[0]
+      const col = loc[1]
 
-    visited[row][col] = true
+      if(row < 0 || col < 0 || row >= this.state.numRows || col >= this.state.numCols) continue;
 
-    // Set current node to visited
+      if(visited[row][col]) continue;
 
-    setTimeout(() => {
+      visited[row][col] = true;
 
-      this.setState((prevState) => {
+      // set node to visited
+      setTimeout(() => this.setState((prevState) => {
         const newGrid = prevState.grid.map((row) => row.slice())
         newGrid[row][col] = VISITED
-  
+
         return {
           grid: newGrid
         }
-      }, () => {
-        this.dfs(row - 1, col, visited)
-        this.dfs(row + 1, col, visited)
-        this.dfs(row, col - 1, visited)
-        this.dfs(row, col + 1, visited)
-      });
+      }), 0)
 
-    }, 0);
+      const dR = [-1, 0, 1, 0]
+      const dC = [0, 1, 0, -1]
 
-    console.log("visited " + row + " " + col)
+      for(let i = 0; i < 4; i++) {
+        stack.push([row + dR[i], col + dC[i]])
+      }
+    }
   }
 
   componentDidMount = () => {
