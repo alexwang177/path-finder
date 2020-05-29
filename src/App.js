@@ -101,8 +101,10 @@ class App extends React.Component {
       visited.push(row)
     }
 
-    this.bfs(startRow, startCol, endRow, endCol, visited)
-
+    if(this.state.algorithm === "dfs")
+      this.dfs(startRow, startCol, endRow, endCol, visited)
+    else if(this.state.algorithm === "bfs")
+      this.bfs(startRow, startCol, endRow, endCol, visited)
   }
 
   dfs = (startRow, startCol, endRow, endCol, visited) => {
@@ -114,11 +116,13 @@ class App extends React.Component {
       const row = loc[0]
       const col = loc[1]
 
-      if(row < 0 || col < 0 || row >= this.state.numRows || col >= this.state.numCols) continue;
+      if(row < 0 || col < 0 || row >= this.state.numRows || col >= this.state.numCols) continue
 
-      if(visited[row][col]) continue;
+      if(visited[row][col]) continue
 
-      visited[row][col] = true;
+      if(this.state.grid[row][col] === WALL) continue
+
+      visited[row][col] = true
 
       if(row === endRow && col === endCol) return
 
@@ -152,9 +156,11 @@ class App extends React.Component {
       const row = loc[0]
       const col = loc[1]
 
-      if(row < 0 || col < 0 || row >= this.state.numRows || col >= this.state.numCols) continue;
+      if(row < 0 || col < 0 || row >= this.state.numRows || col >= this.state.numCols) continue
 
-      if(visited[row][col]) continue;
+      if(visited[row][col]) continue
+
+      if(this.state.grid[row][col] === WALL) continue
 
       visited[row][col] = true;
 
