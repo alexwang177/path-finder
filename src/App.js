@@ -59,6 +59,63 @@ class App extends React.Component {
 
   handleMouseEnter = (rowIndex, colIndex) => handleMouseEnter(rowIndex, colIndex, this)
 
+  // Visualize Function
+
+  visualize = () => {
+    console.log("visualize")
+
+    // Find Start Position (n^2) LOL
+    let startRow = 0
+    let startCol = 0
+
+    for(let i = 0; i < this.state.numRows; i++){
+      for(let j = 0; j < this.state.numCols; j++){
+        if(this.state.grid[i][j] === START){
+          startRow = i;
+          startCol = j;
+        }
+      }
+    }
+
+    const visited = []
+
+    for(let i = 0; i < this.state.numRows; i++){
+      const row = []
+      for(let j = 0; j < this.state.numCols; j++){
+        row.push(false)
+      }
+      visited.push(row)
+    }
+
+    this.dfs(startRow, startCol, visited)
+
+  }
+
+  dfs = (row, col, visited) => {
+    if(row < 0 || col < 0 || row >= this.state.numRows || col >= this.state.numCols) return;
+
+    if(visited[row][col]) return;
+
+    visited[row][col] = true
+
+    // Set current node to visited
+    this.setState((prevState) => {
+      const newGrid = prevState.grid.map((row) => row.slice())
+      newGrid[row][col] = VISITED
+
+      return {
+        grid: newGrid
+      }
+    }, () => {
+      setTimeout(this.dfs(row - 1, col, visited), 2000)
+      setTimeout(this.dfs(row + 1, col, visited), 2000)
+      setTimeout(this.dfs(row, col - 1, visited), 2000)
+      setTimeout(this.dfs(row, col + 1, visited), 2000)
+    })
+
+    console.log(row + " " + col)
+  }
+
   componentDidMount = () => {
     window.addEventListener('mousedown', this.handleMouseDown)
     window.addEventListener('mouseup', this.handleMouseUp)
@@ -74,6 +131,7 @@ class App extends React.Component {
           handleFormChange={this.handleFormChange}
           algorithm={this.state.algorithm}
           marker={this.state.marker}
+          visualize={this.visualize}
         />
         <Board 
           grid={this.state.grid} 
