@@ -1,4 +1,4 @@
-import { START, END, WALL, VISITED, EMPTY} from '../../Constants/constants'
+import { START, END, WALL, VISITED, EMPTY } from '../../Constants/constants'
 
 export const handleMouseDown = (app) => {
     app.setState({ mouseIsDown: true })

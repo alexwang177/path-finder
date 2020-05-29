@@ -3,7 +3,7 @@ import React from 'react';
 import ControlBar from './ControlBar/ControlBar'
 import Board from './Board/Board'
 
-import { START, END, WALL, VISITED, EMPTY} from './Constants/constants'
+import { START, END, WALL, VISITED, EMPTY } from './Constants/constants'
 
 import { handleMouseDown, handleMouseUp, handleMouseEnter, handleNodeClick, handleFormButton, handleFormChange } from './EventHandlers/App/appHandlers'
 import { dfs, bfs } from './Algorithms/algorithms'

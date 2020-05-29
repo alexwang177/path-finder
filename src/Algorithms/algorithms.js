@@ -1,4 +1,4 @@
-import { START, END, WALL, VISITED, EMPTY} from '../Constants/constants'
+import { START, END, WALL, VISITED, EMPTY } from '../Constants/constants'
 
 export const dfs = (startRow, startCol, endRow, endCol, visited, app) => {
     let stack = []

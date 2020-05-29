@@ -1,4 +1,4 @@
-import { START, END, WALL, VISITED, EMPTY} from '../Constants/constants'
+import { START, END, WALL, VISITED, EMPTY } from '../Constants/constants'
 
 export const visualize = (app) => {
     console.log("visualize")
@@ -44,6 +44,6 @@ export const visualize = (app) => {
 
     if(app.state.algorithm === "dfs")
       app.dfs(startRow, startCol, endRow, endCol, visited)
-    else if(app.state.algorithm === "bfs")
+    else if(app.state.algorithm === "bfs" || app.state.algorithm === "dijkstra")
       app.bfs(startRow, startCol, endRow, endCol, visited)
   }

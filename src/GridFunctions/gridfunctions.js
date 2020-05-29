@@ -1,4 +1,4 @@
-import { START, END, WALL, VISITED, EMPTY} from '../Constants/constants'
+import { START, END, WALL, VISITED, EMPTY } from '../Constants/constants'
 
 export const createGrid = (numRows, numCols) => {
     const initGrid = []

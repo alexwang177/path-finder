@@ -13,6 +13,7 @@ function ControlBar(props) {
                 <select name="algorithm" value={props.algorithm} onChange={props.handleFormChange}> 
                     <option value="dfs">Depth-First Search</option>
                     <option value="bfs">Breadth-First Search</option>
+                    <option value="dijkstra">Dijkstra</option>
                 </select>
             </div>
 
