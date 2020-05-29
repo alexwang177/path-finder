@@ -77,6 +77,20 @@ class App extends React.Component {
       }
     }
 
+    // Find End Position
+
+    let endRow = 0
+    let endCol = 0
+
+    for(let i = 0; i < this.state.numRows; i++){
+      for(let j = 0; j < this.state.numCols; j++){
+        if(this.state.grid[i][j] === END){
+          endRow = i;
+          endCol = j;
+        }
+      }
+    }
+
     const visited = []
 
     for(let i = 0; i < this.state.numRows; i++){
@@ -87,11 +101,11 @@ class App extends React.Component {
       visited.push(row)
     }
 
-    this.dfs(startRow, startCol, visited)
+    this.bfs(startRow, startCol, endRow, endCol, visited)
 
   }
 
-  dfs = (startRow, startCol, visited) => {
+  dfs = (startRow, startCol, endRow, endCol, visited) => {
     let stack = []
     stack.push([startRow, startCol])
 
@@ -106,15 +120,19 @@ class App extends React.Component {
 
       visited[row][col] = true;
 
-      // set node to visited
-      setTimeout(() => this.setState((prevState) => {
-        const newGrid = prevState.grid.map((row) => row.slice())
-        newGrid[row][col] = VISITED
+      if(row === endRow && col === endCol) return
 
-        return {
-          grid: newGrid
-        }
-      }), 0)
+      if(row !== startRow || col !== startCol) {
+        // set node to visited
+        setTimeout(() => this.setState((prevState) => {
+          const newGrid = prevState.grid.map((row) => row.slice())
+          newGrid[row][col] = VISITED
+
+          return {
+            grid: newGrid
+          }
+        }), 50)
+      }
 
       const dR = [-1, 0, 1, 0]
       const dC = [0, 1, 0, -1]
@@ -124,6 +142,45 @@ class App extends React.Component {
       }
     }
   }
+
+  bfs = (startRow, startCol, endRow, endCol, visited) => {
+    let queue = []
+    queue.push([startRow, startCol])
+
+    while(queue.length !== 0) {
+      const loc = queue.shift()
+      const row = loc[0]
+      const col = loc[1]
+
+      if(row < 0 || col < 0 || row >= this.state.numRows || col >= this.state.numCols) continue;
+
+      if(visited[row][col]) continue;
+
+      visited[row][col] = true;
+
+      if(row === endRow && col === endCol) return
+
+      if(row !== startRow || col !== startCol) {
+        // set node to visited
+        setTimeout(() => this.setState((prevState) => {
+          const newGrid = prevState.grid.map((row) => row.slice())
+          newGrid[row][col] = VISITED
+
+          return {
+            grid: newGrid
+          }
+        }), 50)
+      }
+
+      const dR = [-1, 0, 1, 0]
+      const dC = [0, 1, 0, -1]
+
+      for(let i = 0; i < 4; i++) {
+        queue.push([row + dR[i], col + dC[i]])
+      }
+    }
+  }
+
 
   componentDidMount = () => {
     window.addEventListener('mousedown', this.handleMouseDown)
