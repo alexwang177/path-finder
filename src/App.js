@@ -7,6 +7,8 @@ import { START, END, WALL, VISITED, EMPTY} from './Constants/constants'
 
 import { handleMouseDown, handleMouseUp, handleMouseEnter, handleNodeClick, handleFormButton, handleFormChange } from './EventHandlers/App/appHandlers'
 import { dfs, bfs } from './Algorithms/algorithms'
+import { createGrid, clearVisited } from './GridFunctions/gridfunctions'
+import { visualize } from './Visualize/visualize'
 
 import './App.css'
 
@@ -30,23 +32,13 @@ class App extends React.Component {
     }
   }
 
-  createGrid = (numRows, numCols) => {
-    const initGrid = []
+  // Initialize grid functions
 
-    for(let i = 0; i < numRows; i++){
-      const row = []
-      for(let j = 0; j < numCols; j++){
-        row.push(0)
-      }
-      initGrid.push(row)
-    }
+  createGrid = (numRows, numCols) => createGrid(numRows, numCols)
 
-    const offset = Math.round(numCols / 4);
-    initGrid[Math.round(numRows / 2)-1][offset] = START
-    initGrid[Math.round(numRows / 2)-1][numCols - 1 - offset] = END
+  clearVisited = () => clearVisited(this)
 
-    return initGrid
-  }
+  // Initialize event handlers
 
   handleFormChange = (e) => handleFormChange(e, this)
 
@@ -60,71 +52,15 @@ class App extends React.Component {
 
   handleMouseEnter = (rowIndex, colIndex) => handleMouseEnter(rowIndex, colIndex, this)
 
-  // Visualize Function
-
-  visualize = () => {
-    console.log("visualize")
-
-    // Find Start Position (n^2) LOL
-    let startRow = 0
-    let startCol = 0
-
-    for(let i = 0; i < this.state.numRows; i++){
-      for(let j = 0; j < this.state.numCols; j++){
-        if(this.state.grid[i][j] === START){
-          startRow = i;
-          startCol = j;
-        }
-      }
-    }
-
-    // Find End Position
-
-    let endRow = 0
-    let endCol = 0
-
-    for(let i = 0; i < this.state.numRows; i++){
-      for(let j = 0; j < this.state.numCols; j++){
-        if(this.state.grid[i][j] === END){
-          endRow = i;
-          endCol = j;
-        }
-      }
-    }
-
-    const visited = []
-
-    for(let i = 0; i < this.state.numRows; i++){
-      const row = []
-      for(let j = 0; j < this.state.numCols; j++){
-        row.push(false)
-      }
-      visited.push(row)
-    }
-
-    this.clearVisited()
-
-    if(this.state.algorithm === "dfs")
-      this.dfs(startRow, startCol, endRow, endCol, visited)
-    else if(this.state.algorithm === "bfs")
-      this.bfs(startRow, startCol, endRow, endCol, visited)
-  }
+  // Initialize algorithms
 
   dfs = (startRow, startCol, endRow, endCol, visited) => dfs(startRow, startCol, endRow, endCol, visited, this)
 
   bfs = (startRow, startCol, endRow, endCol, visited) => bfs(startRow, startCol, endRow, endCol, visited, this)
 
-  clearVisited = () => {
+  // Initialize visualize function
 
-    this.setState((prevState) => {
-      const newGrid = prevState.grid.map((row) => row.map((element) => element === VISITED ? EMPTY : element))
-
-      return {
-        grid: newGrid
-      }
-    })
-  }
-
+  visualize = () => visualize(this)
 
   componentDidMount = () => {
     window.addEventListener('mousedown', this.handleMouseDown)
