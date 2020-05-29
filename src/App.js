@@ -6,6 +6,7 @@ import Board from './Board/Board'
 import { START, END, WALL, VISITED, EMPTY} from './Constants/constants'
 
 import { handleMouseDown, handleMouseUp, handleMouseEnter, handleNodeClick, handleFormButton, handleFormChange } from './EventHandlers/App/appHandlers'
+import { dfs, bfs } from './Algorithms/algorithms'
 
 import './App.css'
 
@@ -109,85 +110,9 @@ class App extends React.Component {
       this.bfs(startRow, startCol, endRow, endCol, visited)
   }
 
-  dfs = (startRow, startCol, endRow, endCol, visited) => {
-    let stack = []
-    stack.push([startRow, startCol])
+  dfs = (startRow, startCol, endRow, endCol, visited) => dfs(startRow, startCol, endRow, endCol, visited, this)
 
-    while(stack.length !== 0) {
-      const loc = stack.pop()
-      const row = loc[0]
-      const col = loc[1]
-
-      if(row < 0 || col < 0 || row >= this.state.numRows || col >= this.state.numCols) continue
-
-      if(visited[row][col]) continue
-
-      if(this.state.grid[row][col] === WALL) continue
-
-      visited[row][col] = true
-
-      if(row === endRow && col === endCol) return
-
-      if(row !== startRow || col !== startCol) {
-        // set node to visited
-        setTimeout(() => this.setState((prevState) => {
-          const newGrid = prevState.grid.map((row) => row.slice())
-          newGrid[row][col] = VISITED
-
-          return {
-            grid: newGrid
-          }
-        }), 50)
-      }
-
-      const dR = [-1, 0, 1, 0]
-      const dC = [0, 1, 0, -1]
-
-      for(let i = 0; i < 4; i++) {
-        stack.push([row + dR[i], col + dC[i]])
-      }
-    }
-  }
-
-  bfs = (startRow, startCol, endRow, endCol, visited) => {
-    let queue = []
-    queue.push([startRow, startCol])
-
-    while(queue.length !== 0) {
-      const loc = queue.shift()
-      const row = loc[0]
-      const col = loc[1]
-
-      if(row < 0 || col < 0 || row >= this.state.numRows || col >= this.state.numCols) continue
-
-      if(visited[row][col]) continue
-
-      if(this.state.grid[row][col] === WALL) continue
-
-      visited[row][col] = true;
-
-      if(row === endRow && col === endCol) return
-
-      if(row !== startRow || col !== startCol) {
-        // set node to visited
-        setTimeout(() => this.setState((prevState) => {
-          const newGrid = prevState.grid.map((row) => row.slice())
-          newGrid[row][col] = VISITED
-
-          return {
-            grid: newGrid
-          }
-        }), 50)
-      }
-
-      const dR = [-1, 0, 1, 0]
-      const dC = [0, 1, 0, -1]
-
-      for(let i = 0; i < 4; i++) {
-        queue.push([row + dR[i], col + dC[i]])
-      }
-    }
-  }
+  bfs = (startRow, startCol, endRow, endCol, visited) => bfs(startRow, startCol, endRow, endCol, visited, this)
 
   clearVisited = () => {
 
