@@ -40,8 +40,9 @@ class App extends React.Component {
       initGrid.push(row)
     }
 
-    initGrid[Math.round(numRows / 2)][Math.round(numCols / 4)-1] = START
-    initGrid[Math.round(numRows / 2)][Math.round((numCols / 4) * 3) - 1] = END
+    const offset = Math.round(numCols / 4);
+    initGrid[Math.round(numRows / 2)-1][offset] = START
+    initGrid[Math.round(numRows / 2)-1][numCols - 1 - offset] = END
 
     return initGrid
   }

@@ -94,6 +94,16 @@ html, body {
     background-color: black;
 }
 
+.visited-node {
+    background: turquoise;
+    animation-name: visited-animation;
+    animation-duration: 2s;
+}
+
+@keyframes visited-animation {
+    0% {background-color: whitesmoke}
+    100% {background-color: turquoise}
+}
 /*.node-div:hover {
     background-color: red;
 }*/
