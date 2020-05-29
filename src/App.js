@@ -101,6 +101,8 @@ class App extends React.Component {
       visited.push(row)
     }
 
+    this.clearVisited()
+
     if(this.state.algorithm === "dfs")
       this.dfs(startRow, startCol, endRow, endCol, visited)
     else if(this.state.algorithm === "bfs")
@@ -185,6 +187,17 @@ class App extends React.Component {
         queue.push([row + dR[i], col + dC[i]])
       }
     }
+  }
+
+  clearVisited = () => {
+
+    this.setState((prevState) => {
+      const newGrid = prevState.grid.map((row) => row.map((element) => element === VISITED ? EMPTY : element))
+
+      return {
+        grid: newGrid
+      }
+    })
   }
 
 
