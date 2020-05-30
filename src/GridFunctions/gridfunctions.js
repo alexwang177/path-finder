@@ -1,4 +1,4 @@
-import { START, END, WALL, VISITED, EMPTY } from '../Constants/constants'
+import { START, END, WALL, VISITED, EMPTY, PATH } from '../Constants/constants'
 
 export const createGrid = (numRows, numCols) => {
     const initGrid = []
@@ -21,7 +21,7 @@ export const createGrid = (numRows, numCols) => {
   export const clearVisited = (app) => {
 
     app.setState((prevState) => {
-      const newGrid = prevState.grid.map((row) => row.map((element) => element === VISITED ? EMPTY : element))
+      const newGrid = prevState.grid.map((row) => row.map((element) => (element === VISITED || element === PATH) ? EMPTY : element))
 
       return {
         grid: newGrid
