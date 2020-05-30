@@ -37,7 +37,7 @@ export const dfs = (startRow, startCol, endRow, endCol, visited, app) => {
           return {
             grid: newGrid
           }
-        }), 500)
+        }), 50)
 
       }
 
@@ -82,6 +82,8 @@ export const dfs = (startRow, startCol, endRow, endCol, visited, app) => {
     let parentMap = new Map()
     let found = false
 
+    let delayOffset = 0;
+
     while(queue.length !== 0) {
       const loc = queue.shift()
       const row = loc[0]
@@ -110,7 +112,9 @@ export const dfs = (startRow, startCol, endRow, endCol, visited, app) => {
           return {
             grid: newGrid
           }
-        }), 0)
+        }), delayOffset)
+
+        delayOffset += 75
       }
 
       const dR = [-1, 0, 1, 0]
@@ -132,10 +136,10 @@ export const dfs = (startRow, startCol, endRow, endCol, visited, app) => {
     }
     // while loop exits
 
-    getPath(parentMap, endRow, endCol, app)
+    getPath(parentMap, endRow, endCol, delayOffset, app)
   }
 
-  export const getPath = (parentMap, endRow, endCol, app) => {
+  export const getPath = (parentMap, endRow, endCol, delayOffset, app) => {
     let cur = endRow + " " + endCol
     let path = []
 
@@ -154,6 +158,8 @@ export const dfs = (startRow, startCol, endRow, endCol, visited, app) => {
 
     path.reverse()
 
+    let pathDelayOffset = 0
+
     path.forEach((loc) => {
         const rowIdx = loc[0]
         const colIdx = loc[1]
@@ -167,6 +173,8 @@ export const dfs = (startRow, startCol, endRow, endCol, visited, app) => {
             return {
             grid: newGrid
             }
-        }), 500)
+        }), delayOffset + 500 + pathDelayOffset)
+
+        pathDelayOffset += 75
     })
   }

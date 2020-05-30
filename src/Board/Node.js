@@ -8,7 +8,9 @@ class Node extends React.Component {
 
     constructor() {
         super()
-        this.state = {}
+        this.state = {
+            loading: false
+        }
     }
 
     shouldComponentUpdate(nextProps) {
@@ -28,24 +30,36 @@ class Node extends React.Component {
     nodeDisplay = () => {
         let className = "node-div"
 
-        if(this.props.nodeValue === START){
-            className += " start-node"
-        }
-        else if(this.props.nodeValue === END){
-            className += " end-node"
-        }
-        else if(this.props.nodeValue === WALL){
-            className += " wall-node"
-        }
-        else if(this.props.nodeValue === VISITED){
-            className += " visited-node"
-        }
-        else if(this.props.nodeValue === PATH){
-            className += " path-node"
+        if(!this.state.loading) {
+            if(this.props.nodeValue === START){
+                className += " start-node"
+            }
+            else if(this.props.nodeValue === END){
+                className += " end-node"
+            }
+            else if(this.props.nodeValue === WALL){
+                className += " wall-node"
+            }
+            else if(this.props.nodeValue === VISITED){
+                className += " visited-node"
+            }
+            else if(this.props.nodeValue === PATH){
+                className += " path-node"
+            }
         }
 
         return className
     }
+
+    /*componentWillUpdate = (prevProps) => {
+        console.log("node updated")
+
+        if(prevProps.nodeValue !== VISITED && this.props.nodeValue === VISITED || prevProps.nodeValue !== PATH && this.props.nodeValue === PATH){
+            this.setState({ loading: true }, () => {
+                setTimeout(this.setState({ loading: false }), 5000)
+            })
+        }
+    }*/
 
     render() {
 
