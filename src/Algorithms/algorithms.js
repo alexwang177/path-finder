@@ -1,10 +1,15 @@
-import { START, END, WALL, VISITED, EMPTY } from '../Constants/constants'
+import { START, END, WALL, VISITED, EMPTY, PATH } from '../Constants/constants'
 
 export const dfs = (startRow, startCol, endRow, endCol, visited, app) => {
     let stack = []
     stack.push([startRow, startCol])
 
+    let parentMap = new Map()
+
+    let found = false
+
     while(stack.length !== 0) {
+
       const loc = stack.pop()
       const row = loc[0]
       const col = loc[1]
@@ -15,9 +20,13 @@ export const dfs = (startRow, startCol, endRow, endCol, visited, app) => {
 
       if(app.state.grid[row][col] === WALL) continue
 
-      visited[row][col] = true
+      console.log("visiting node...")
+      visited[row][col] = true;
 
-      if(row === endRow && col === endCol) return
+      if(row === endRow && col === endCol) {
+          found = true
+          break
+      }
 
       if(row !== startRow || col !== startCol) {
         // set node to visited
@@ -28,21 +37,50 @@ export const dfs = (startRow, startCol, endRow, endCol, visited, app) => {
           return {
             grid: newGrid
           }
-        }), 50)
+        }), 500)
+
       }
 
-      const dR = [-1, 0, 1, 0]
-      const dC = [0, 1, 0, -1]
+          /*app.setState((prevState) => {
+            const newGrid = prevState.grid.map((row) => row.slice())
 
-      for(let i = 0; i < 4; i++) {
-        stack.push([row + dR[i], col + dC[i]])
-      }
+            if(row !== startRow || col !== startCol)
+            newGrid[row][col] = VISITED
+
+            return {
+              grid: newGrid
+            }
+          })*/
+
+        console.log(app.state.grid)
+
+        const dR = [-1, 0, 1, 0]
+        const dC = [0, 1, 0, -1]
+
+        for(let i = 0; i < 4; i++) {
+            const newR = row + dR[i]
+            const newC = col + dC[i]
+
+            if(newR < 0 || newC < 0 || newR >= app.state.numRows || newC >= app.state.numCols) continue
+
+            if(!visited[newR][newC]) {
+                stack.push([row + dR[i], col + dC[i]])
+                parentMap.set(newR + " " + newC, row + " " + col)
+            }
+        }
+
+    
     }
+    getPath(parentMap, endRow, endCol, app)
+
   }
 
   export const bfs = (startRow, startCol, endRow, endCol, visited, app) => {
     let queue = []
     queue.push([startRow, startCol])
+
+    let parentMap = new Map()
+    let found = false
 
     while(queue.length !== 0) {
       const loc = queue.shift()
@@ -55,9 +93,13 @@ export const dfs = (startRow, startCol, endRow, endCol, visited, app) => {
 
       if(app.state.grid[row][col] === WALL) continue
 
+      console.log("bfs visiting node...")
       visited[row][col] = true;
 
-      if(row === endRow && col === endCol) return
+      if(row === endRow && col === endCol) {
+          found = true
+          break
+      }
 
       if(row !== startRow || col !== startCol) {
         // set node to visited
@@ -68,14 +110,63 @@ export const dfs = (startRow, startCol, endRow, endCol, visited, app) => {
           return {
             grid: newGrid
           }
-        }), 50)
+        }), 0)
       }
 
       const dR = [-1, 0, 1, 0]
       const dC = [0, 1, 0, -1]
 
       for(let i = 0; i < 4; i++) {
-        queue.push([row + dR[i], col + dC[i]])
+        const newR = row + dR[i]
+        const newC = col + dC[i]
+
+        if(newR < 0 || newC < 0 || newR >= app.state.numRows || newC >= app.state.numCols) continue
+
+        if(!visited[newR][newC]){
+            queue.push([newR, newC])
+            parentMap.set(newR + " " + newC, row + " " + col)
+        }
+
       }
+
     }
+    // while loop exits
+
+    getPath(parentMap, endRow, endCol, app)
+  }
+
+  export const getPath = (parentMap, endRow, endCol, app) => {
+    let cur = endRow + " " + endCol
+    let path = []
+
+    while(parentMap.has(cur)) {
+        console.log(cur)
+
+        const loc = cur.split(" ")
+        const row = loc[0]
+        const col = loc[1]
+
+        if(row !== endRow || col !== endCol) 
+            path.push([row, col])
+
+        cur = parentMap.get(cur)
+    }
+
+    path.reverse()
+
+    path.forEach((loc) => {
+        const rowIdx = loc[0]
+        const colIdx = loc[1]
+
+        setTimeout(() => app.setState((prevState) => {
+            const newGrid = prevState.grid.map((row) => row.slice())
+
+            if(prevState.grid[rowIdx][colIdx] !== END)
+                newGrid[rowIdx][colIdx] = PATH
+
+            return {
+            grid: newGrid
+            }
+        }), 500)
+    })
   }

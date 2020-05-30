@@ -42,8 +42,10 @@ export const visualize = (app) => {
 
     app.clearVisited()
 
-    if(app.state.algorithm === "dfs")
+    if(app.state.algorithm === "dfs"){
       app.dfs(startRow, startCol, endRow, endCol, visited)
+      //console.log("dfs done")
+    }
     else if(app.state.algorithm === "bfs" || app.state.algorithm === "dijkstra")
       app.bfs(startRow, startCol, endRow, endCol, visited)
   }

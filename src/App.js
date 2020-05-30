@@ -6,7 +6,7 @@ import Board from './Board/Board'
 import { START, END, WALL, VISITED, EMPTY } from './Constants/constants'
 
 import { handleMouseDown, handleMouseUp, handleMouseEnter, handleNodeClick, handleFormButton, handleFormChange } from './EventHandlers/App/appHandlers'
-import { dfs, bfs } from './Algorithms/algorithms'
+import { dfs, bfs, getPath } from './Algorithms/algorithms'
 import { createGrid, clearVisited } from './GridFunctions/gridfunctions'
 import { visualize } from './Visualize/visualize'
 

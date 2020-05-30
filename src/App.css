@@ -104,6 +104,14 @@ html, body {
     0% {background-color: whitesmoke}
     100% {background-color: turquoise}
 }
-/*.node-div:hover {
-    background-color: red;
-}*/
+
+.path-node {
+    background: rgb(203, 87, 238);
+    animation-name: path-animation;
+    animation-duration: 2s
+}
+
+@keyframes path-animation {
+    0% {background-color: whitesmoke}
+    100% {background-color: rgb(203, 87, 238)}
+}

@@ -1,5 +1,5 @@
 import React from 'react'
-import { START, END, WALL, VISITED, EMPTY } from '../Constants/constants'
+import { START, END, WALL, VISITED, EMPTY, PATH } from '../Constants/constants'
 
 import { handleClick, handleMouseEnter, handleMouseLeave } from '../EventHandlers/Node/nodeHandlers' 
 import { exportDefaultSpecifier } from '@babel/types'
@@ -39,6 +39,9 @@ class Node extends React.Component {
         }
         else if(this.props.nodeValue === VISITED){
             className += " visited-node"
+        }
+        else if(this.props.nodeValue === PATH){
+            className += " path-node"
         }
 
         return className
