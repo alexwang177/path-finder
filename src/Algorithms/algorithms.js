@@ -8,6 +8,9 @@ export const dfs = (startRow, startCol, endRow, endCol, visited, app) => {
 
     let found = false
 
+    let totalDelay = 0
+    const delayOffset = 75
+
     while(stack.length !== 0) {
 
       const loc = stack.pop()
@@ -37,20 +40,10 @@ export const dfs = (startRow, startCol, endRow, endCol, visited, app) => {
           return {
             grid: newGrid
           }
-        }), 50)
+        }), totalDelay)
 
+        totalDelay += delayOffset
       }
-
-          /*app.setState((prevState) => {
-            const newGrid = prevState.grid.map((row) => row.slice())
-
-            if(row !== startRow || col !== startCol)
-            newGrid[row][col] = VISITED
-
-            return {
-              grid: newGrid
-            }
-          })*/
 
         console.log(app.state.grid)
 
@@ -71,7 +64,7 @@ export const dfs = (startRow, startCol, endRow, endCol, visited, app) => {
 
     
     }
-    getPath(parentMap, endRow, endCol, app)
+    getPath(parentMap, endRow, endCol, totalDelay, delayOffset, app)
 
   }
 
@@ -82,7 +75,8 @@ export const dfs = (startRow, startCol, endRow, endCol, visited, app) => {
     let parentMap = new Map()
     let found = false
 
-    let delayOffset = 0;
+    let totalDelay = 0
+    const delayOffset = 75
 
     while(queue.length !== 0) {
       const loc = queue.shift()
@@ -112,9 +106,9 @@ export const dfs = (startRow, startCol, endRow, endCol, visited, app) => {
           return {
             grid: newGrid
           }
-        }), delayOffset)
+        }), totalDelay)
 
-        delayOffset += 75
+        totalDelay += delayOffset
       }
 
       const dR = [-1, 0, 1, 0]
@@ -136,10 +130,10 @@ export const dfs = (startRow, startCol, endRow, endCol, visited, app) => {
     }
     // while loop exits
 
-    getPath(parentMap, endRow, endCol, delayOffset, app)
+    getPath(parentMap, endRow, endCol, totalDelay, delayOffset, app)
   }
 
-  export const getPath = (parentMap, endRow, endCol, delayOffset, app) => {
+  export const getPath = (parentMap, endRow, endCol, totalDelay, delayOffset, app) => {
     let cur = endRow + " " + endCol
     let path = []
 
@@ -158,7 +152,8 @@ export const dfs = (startRow, startCol, endRow, endCol, visited, app) => {
 
     path.reverse()
 
-    let pathDelayOffset = 0
+    // Add some time before the path renders
+    totalDelay += 500
 
     path.forEach((loc) => {
         const rowIdx = loc[0]
@@ -173,8 +168,8 @@ export const dfs = (startRow, startCol, endRow, endCol, visited, app) => {
             return {
             grid: newGrid
             }
-        }), delayOffset + 500 + pathDelayOffset)
+        }), totalDelay)
 
-        pathDelayOffset += 75
+        totalDelay += delayOffset
     })
   }
