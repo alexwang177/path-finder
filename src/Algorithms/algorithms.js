@@ -1,4 +1,4 @@
-import { START, END, WALL, VISITED, EMPTY, PATH } from '../Constants/constants'
+import { START, END, WALL, VISITED, EMPTY, PATH, SLOW, MODERATE, FAST } from '../Constants/constants'
 
 export const dfs = (startRow, startCol, endRow, endCol, visited, app) => {
     let stack = []
@@ -9,7 +9,7 @@ export const dfs = (startRow, startCol, endRow, endCol, visited, app) => {
     let found = false
 
     let totalDelay = 0
-    const delayOffset = 75
+    const delayOffset = getSpeed(app.state.speed)
 
     while(stack.length !== 0) {
 
@@ -76,7 +76,7 @@ export const dfs = (startRow, startCol, endRow, endCol, visited, app) => {
     let found = false
 
     let totalDelay = 0
-    const delayOffset = 75
+    const delayOffset = getSpeed(app.state.speed)
 
     while(queue.length !== 0) {
       const loc = queue.shift()
@@ -133,6 +133,106 @@ export const dfs = (startRow, startCol, endRow, endCol, visited, app) => {
     getPath(parentMap, endRow, endCol, totalDelay, delayOffset, app)
   }
 
+  export const bidirectional = (startRow, startCol, endRow, endCol, visited, app) => {
+    console.log("bds")
+    let queueA = []
+    let queueB = []
+
+    let visitedA = {}
+    let visitedB = {}
+
+    visitedA[startRow + " " + startCol] = "#"
+    visitedB[endRow + " " + endCol] = "#"
+
+    queueA.push([startRow, startCol])
+    queueB.push([endRow, endCol])
+
+    console.log("start: " + startRow + " " + startCol)
+
+    let totalDelay = [0]
+    const delayOffset = getSpeed(app.state.speed)
+
+    while(queueA.length !== 0 && queueB.length !== 0) {
+      if(bdsHelper(queueA, visitedA, visitedB, startRow, startCol, endRow, endCol, totalDelay, delayOffset, app))
+        return
+
+      if(bdsHelper(queueB, visitedB, visitedA, startRow, startCol, endRow, endCol, totalDelay, delayOffset, app))
+        return
+    }
+
+
+  }
+
+  const bdsHelper = (queue, visitedSelf, visitedOther, startRow, startCol, endRow, endCol, totalDelay, delayOffset, app) => {
+    if(queue.length !== 0) {
+      console.log("bds helper")
+      const loc = queue.shift()
+      const row = loc[0]
+      const col = loc[1]
+
+      console.log(row + " " + col)
+
+      // mark current node as visited
+      const startMark = row === startRow && col === startCol
+      const endMark = row === endRow && col === endCol
+
+      if(!startMark && !endMark) {
+        // set node to visited
+        setTimeout(() => app.setState((prevState) => {
+          const newGrid = prevState.grid.map((row) => row.slice())
+          newGrid[row][col] = VISITED
+
+          return {
+            grid: newGrid
+          }
+        }), totalDelay[0])
+
+        totalDelay[0] += delayOffset
+      }
+
+      const dR = [-1, 0, 1, 0]
+      const dC = [0, 1, 0, -1]
+
+      for(let i = 0; i < 4; i++) {
+        const newR = row + dR[i]
+        const newC = col + dC[i]
+
+        if(visitedOther.hasOwnProperty(newR + " " + newC)){
+          console.log("Meeting: " + newR + " " + newC)
+
+          setTimeout(() => app.setState((prevState) => {
+            const newGrid = prevState.grid.map((row) => row.slice())
+            newGrid[newR][newC] = VISITED
+  
+            return {
+              grid: newGrid
+            }
+          }), totalDelay[0])
+  
+          totalDelay[0] += delayOffset
+
+          return true
+        }
+        else if(!visitedSelf.hasOwnProperty(newR + " " + newC)){
+          visitedSelf[newR + " " + newC] = "#"
+          queue.push([newR, newC])
+        }
+
+      }
+
+    }
+
+    return false
+  }
+
+  const isEmpty = (obj) => {
+    return Object.keys(obj).length === 0
+  }
+
+  const size = (obj) => {
+    return Object.keys(obj).length
+  }
+
   export const getPath = (parentMap, endRow, endCol, totalDelay, delayOffset, app) => {
     let cur = endRow + " " + endCol
     let path = []
@@ -172,4 +272,20 @@ export const dfs = (startRow, startCol, endRow, endCol, visited, app) => {
 
         totalDelay += delayOffset
     })
+  }
+
+  const getSpeed = (speed) => {
+    switch(speed) {
+      case "slow":
+        return SLOW
+        break
+
+      case "moderate":
+        return MODERATE
+        break
+
+      case "fast":
+        return FAST
+        break
+    }
   }

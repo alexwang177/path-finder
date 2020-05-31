@@ -14,6 +14,7 @@ function ControlBar(props) {
                     <option value="dfs">Depth-First Search</option>
                     <option value="bfs">Breadth-First Search</option>
                     <option value="dijkstra">Dijkstra</option>
+                    <option value="bds">Bi-Directional Search</option>
                 </select>
             </div>
 
@@ -22,6 +23,14 @@ function ControlBar(props) {
                     <option value="start">Start</option>
                     <option value="end">End</option>
                     <option value="wall">Wall</option>
+                </select>
+            </div>
+
+            <div className="control-bar-selectors" id="speed-selector">
+                <select name="speed" value={props.speed} onChange={props.handleFormChange}> 
+                    <option value="slow">Slow</option>
+                    <option selected="selected" value="moderate">Moderate</option>
+                    <option value="fast">Fast</option>
                 </select>
             </div>
 

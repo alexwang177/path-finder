@@ -108,7 +108,7 @@ export const handleFormChange = (e, app) => {
 
     const {name, value} = e.target
 
-    if(name === "rowInput" || name === "colInput" || name === "algorithm" || name === "marker") {
+    if(name === "rowInput" || name === "colInput" || name === "algorithm" || name === "marker" || name === "speed") {
       app.setState({ [name] : value })
     }
   }

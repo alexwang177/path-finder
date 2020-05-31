@@ -48,4 +48,6 @@ export const visualize = (app) => {
     }
     else if(app.state.algorithm === "bfs" || app.state.algorithm === "dijkstra")
       app.bfs(startRow, startCol, endRow, endCol, visited)
+    else if(app.state.algorithm === "bds")
+      app.bidirectional(startRow, startCol, endRow, endCol, visited)
   }

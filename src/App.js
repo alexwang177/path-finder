@@ -6,7 +6,7 @@ import Board from './Board/Board'
 import { START, END, WALL, VISITED, EMPTY } from './Constants/constants'
 
 import { handleMouseDown, handleMouseUp, handleMouseEnter, handleNodeClick, handleFormButton, handleFormChange } from './EventHandlers/App/appHandlers'
-import { dfs, bfs, getPath } from './Algorithms/algorithms'
+import { dfs, bfs, bidirectional, getPath } from './Algorithms/algorithms'
 import { createGrid, clearVisited } from './GridFunctions/gridfunctions'
 import { visualize } from './Visualize/visualize'
 
@@ -26,6 +26,7 @@ class App extends React.Component {
       grid: this.createGrid(initRows, initCols),
       algorithm: "dfs",
       marker: "start",
+      speed: "moderate",
       rowInput: "",
       colInput: "",
       mouseIsDown: false
@@ -58,6 +59,8 @@ class App extends React.Component {
 
   bfs = (startRow, startCol, endRow, endCol, visited) => bfs(startRow, startCol, endRow, endCol, visited, this)
 
+  bidirectional = (startRow, startCol, endRow, endCol, visited) => bidirectional(startRow, startCol, endRow, endCol, visited, this)
+
   // Initialize visualize function
 
   visualize = () => visualize(this)
@@ -84,10 +87,12 @@ class App extends React.Component {
           numCols={this.state.numCols} 
           numRows={this.state.numRows}
           marker={this.state.marker}
+          speed={this.state.speed}
           handleNodeClick={this.handleNodeClick}
           handleMouseEnter={this.handleMouseEnter}
           updateGrid={this.updateGrid}
         />
+        <h1>{this.state.algorithm}</h1>
       </div>
     )
   }
