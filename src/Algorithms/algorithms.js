@@ -172,6 +172,8 @@ export const dfs = (startRow, startCol, endRow, endCol, visited, app) => {
 
       console.log(row + " " + col)
 
+      if(row < 0 || col < 0 || row >= app.state.numRows || col >= app.state.numCols) return false
+
       if(app.state.grid[row][col] === WALL) return false
 
       // mark current node as visited
