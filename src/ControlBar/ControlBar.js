@@ -18,6 +18,14 @@ function ControlBar(props) {
                 </select>
             </div>
 
+            <div className="control-bar-selectors" id="maze-selector">
+                <select name="maze" value={props.maze} onChange={props.handleFormChange}> 
+                    <option value="rmd">Recursive Maze Division</option>
+                </select>
+            </div>
+
+            <button id="maze-button" onClick={props.generateMaze}>Generate Maze</button>
+
             <div className="control-bar-selectors" id="mark-selector">
                 <select name="marker" value={props.marker} onChange={props.handleFormChange}> 
                     <option value="start">Start</option>

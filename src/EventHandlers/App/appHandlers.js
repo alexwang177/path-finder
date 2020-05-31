@@ -78,8 +78,8 @@ export const handleFormButton = (e, app) => {
       app.setState((prevState) => {
 
         return {
-          numRows: prevState.rowInput,
-          numCols: prevState.colInput,
+          numRows: Number(prevState.rowInput),
+          numCols: Number(prevState.colInput),
           grid: app.createGrid(prevState.rowInput, prevState.colInput),
           rowInput: "",
           colInput: ""
@@ -108,7 +108,7 @@ export const handleFormChange = (e, app) => {
 
     const {name, value} = e.target
 
-    if(name === "rowInput" || name === "colInput" || name === "algorithm" || name === "marker" || name === "speed") {
+    if(name === "rowInput" || name === "colInput" || name === "algorithm" || name === "marker" || name === "speed" || name === "maze") {
       app.setState({ [name] : value })
     }
   }

@@ -9,6 +9,7 @@ import { handleMouseDown, handleMouseUp, handleMouseEnter, handleNodeClick, hand
 import { dfs, bfs, bidirectional, getPath } from './Algorithms/algorithms'
 import { createGrid, clearVisited } from './GridFunctions/gridfunctions'
 import { visualize } from './Visualize/visualize'
+import { generateMaze } from './Algorithms/mazeAlgorithms'
 
 import './App.css'
 
@@ -25,6 +26,7 @@ class App extends React.Component {
       numCols: initCols,
       grid: this.createGrid(initRows, initCols),
       algorithm: "dfs",
+      maze: "rmd",
       marker: "start",
       speed: "moderate",
       rowInput: "",
@@ -65,6 +67,10 @@ class App extends React.Component {
 
   visualize = () => visualize(this)
 
+  // Initialize generateMaze function
+
+  generateMaze = () => generateMaze(this)
+
   componentDidMount = () => {
     window.addEventListener('mousedown', this.handleMouseDown)
     window.addEventListener('mouseup', this.handleMouseUp)
@@ -81,6 +87,7 @@ class App extends React.Component {
           algorithm={this.state.algorithm}
           marker={this.state.marker}
           visualize={this.visualize}
+          generateMaze={this.generateMaze}
         />
         <Board 
           grid={this.state.grid} 
@@ -92,7 +99,7 @@ class App extends React.Component {
           handleMouseEnter={this.handleMouseEnter}
           updateGrid={this.updateGrid}
         />
-        <h1>{this.state.algorithm}</h1>
+        <h1>{this.state.numRows + " " + this.state.numCols}</h1>
       </div>
     )
   }
