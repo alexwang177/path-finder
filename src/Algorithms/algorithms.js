@@ -172,6 +172,8 @@ export const dfs = (startRow, startCol, endRow, endCol, visited, app) => {
 
       console.log(row + " " + col)
 
+      if(app.state.grid[row][col] === WALL) return false
+
       // mark current node as visited
       const startMark = row === startRow && col === startCol
       const endMark = row === endRow && col === endCol
@@ -223,14 +225,6 @@ export const dfs = (startRow, startCol, endRow, endCol, visited, app) => {
     }
 
     return false
-  }
-
-  const isEmpty = (obj) => {
-    return Object.keys(obj).length === 0
-  }
-
-  const size = (obj) => {
-    return Object.keys(obj).length
   }
 
   export const getPath = (parentMap, endRow, endCol, totalDelay, delayOffset, app) => {
