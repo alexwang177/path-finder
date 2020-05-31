@@ -152,18 +152,28 @@ export const dfs = (startRow, startCol, endRow, endCol, visited, app) => {
     let totalDelay = [0]
     const delayOffset = getSpeed(app.state.speed)
 
-    while(queueA.length !== 0 && queueB.length !== 0) {
-      if(bdsHelper(queueA, visitedA, visitedB, startRow, startCol, endRow, endCol, totalDelay, delayOffset, app))
-        return
+    let found = false
 
-      if(bdsHelper(queueB, visitedB, visitedA, startRow, startCol, endRow, endCol, totalDelay, delayOffset, app))
-        return
+    let parentMap = new Map()
+
+    while(queueA.length !== 0 && queueB.length !== 0) {
+      if(bdsHelper(queueA, visitedA, visitedB, startRow, startCol, endRow, endCol, totalDelay, delayOffset, parentMap, app)){
+        found = true
+        break
+      }
+
+      if(bdsHelper(queueB, visitedB, visitedA, startRow, startCol, endRow, endCol, totalDelay, delayOffset, parentMap, app)){
+        found = true
+        break
+      }
     }
 
-
+    //if(found) {
+      //getPathBDS(parentMap, endRow, endCol, totalDelay[0], delayOffset, app)
+    //}
   }
 
-  const bdsHelper = (queue, visitedSelf, visitedOther, startRow, startCol, endRow, endCol, totalDelay, delayOffset, app) => {
+  const bdsHelper = (queue, visitedSelf, visitedOther, startRow, startCol, endRow, endCol, totalDelay, delayOffset, parentMap, app) => {
     if(queue.length !== 0) {
       console.log("bds helper")
       const loc = queue.shift()
@@ -204,6 +214,8 @@ export const dfs = (startRow, startCol, endRow, endCol, visited, app) => {
         if(visitedOther.hasOwnProperty(newR + " " + newC)){
           console.log("Meeting: " + newR + " " + newC)
 
+          parentMap.set(newR + " " + newC + "alt", row + " " + col)
+
           setTimeout(() => app.setState((prevState) => {
             const newGrid = prevState.grid.map((row) => row.slice())
             newGrid[newR][newC] = VISITED
@@ -215,11 +227,19 @@ export const dfs = (startRow, startCol, endRow, endCol, visited, app) => {
   
           totalDelay[0] += delayOffset
 
+          getPathBDS(parentMap, newR, newC, totalDelay[0], delayOffset, app)
+
           return true
         }
         else if(!visitedSelf.hasOwnProperty(newR + " " + newC)){
+
+          if(newR < 0 || newC < 0 || newR >= app.state.numRows || newC >= app.state.numCols) continue
+
+          if(app.state.grid[newR][newC] === WALL) continue
+
           visitedSelf[newR + " " + newC] = "#"
           queue.push([newR, newC])
+          parentMap.set(newR + " " + newC, row + " " + col)
         }
 
       }
@@ -229,7 +249,81 @@ export const dfs = (startRow, startCol, endRow, endCol, visited, app) => {
     return false
   }
 
+  export const getPathBDS = (parentMap, meetingRow, meetingCol, totalDelay, delayOffset, app) => {
+    console.log("PATH BDS")
+
+    let cur = meetingRow + " " + meetingCol
+    let pathA = []
+
+    let pathAContainsStart = false
+
+    while(parentMap.has(cur)) {
+      const loc = cur.split(" ")
+      const row = loc[0]
+      const col = loc[1]
+
+      if(app.state.grid[row][col] !== START && app.state.grid[row][col] !== END) 
+        pathA.push([row, col])
+
+      if(app.state.grid[row][col] === START) pathAContainsStart = true
+
+      cur = parentMap.get(cur)
+    }
+
+    //pathA.reverse()
+
+    cur = meetingRow + " " + meetingCol + "alt"
+    let pathB = []
+    
+    while(parentMap.has(cur)) {
+      const loc = cur.split(" ")
+      const row = loc[0]
+      const col = loc[1]
+
+      if(app.state.grid[row][col] !== START && app.state.grid[row][col] !== END) 
+        pathB.push([row, col])
+
+      cur = parentMap.get(cur)
+    }
+
+    let finalPath = []
+
+    if(pathAContainsStart) {
+      pathA.reverse()
+      finalPath = pathA.concat(pathB)
+    }
+    else {
+      pathB.reverse()
+      finalPath = pathB.concat(pathA)
+    }
+
+    // Add some time before the path renders
+    totalDelay += 500
+
+    finalPath.forEach((loc) => {
+        const rowIdx = loc[0]
+        const colIdx = loc[1]
+
+        setTimeout(() => app.setState((prevState) => {
+            const newGrid = prevState.grid.map((row) => row.slice())
+
+            if(prevState.grid[rowIdx][colIdx] !== START && prevState.grid[rowIdx][colIdx] !== END)
+                newGrid[rowIdx][colIdx] = PATH
+
+            return {
+            grid: newGrid
+            }
+        }), totalDelay)
+
+        totalDelay += delayOffset
+    })
+  }
+
   export const getPath = (parentMap, endRow, endCol, totalDelay, delayOffset, app) => {
+    console.log("PATH")
+
+    console.log(parentMap)
+
     let cur = endRow + " " + endCol
     let path = []
 
