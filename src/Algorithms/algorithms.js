@@ -265,10 +265,13 @@ export const dfs = (startRow, startCol, endRow, endCol, visited, app) => {
       if(app.state.grid[row][col] !== START && app.state.grid[row][col] !== END) 
         pathA.push([row, col])
 
-      if(app.state.grid[row][col] === START) pathAContainsStart = true
+      //if(app.state.grid[row][col] === START) pathAContainsStart = true
 
       cur = parentMap.get(cur)
     }
+
+    const loc = cur.split(" ")
+    if(app.state.grid[loc[0]][loc[1]] === START) pathAContainsStart = true
 
     //pathA.reverse()
 
