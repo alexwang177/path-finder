@@ -64,8 +64,8 @@ class Node extends React.Component {
     render() {
 
         const location = this.props.location.split(" ")
-        console.log("node render " + location[0] + " " + location[1])
-        console.log(this.props.nodeValue)
+        //console.log("node render " + location[0] + " " + location[1])
+        //console.log(this.props.nodeValue)
 
         const className = this.nodeDisplay()
 

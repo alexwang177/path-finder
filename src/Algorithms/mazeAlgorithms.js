@@ -12,10 +12,12 @@ export const generateMaze = (app) => {
     mazeDimensions(app, totalDelay, delayOffset)
 
     // Generate border of maze
-    // mazeBorder(app, totalDelay, delayOffset)
+    //mazeBorder(app, totalDelay, delayOffset, () => divide(0, 0, app.state.numCols-1, app.state.numRows-1, VERTICAL, totalDelay, delayOffset, app))
 
     // Generate rest of maze
     // divide(0, 0, app.state.numCols, app.state.numRows, HORIZONTAL, totalDelay, delayOffset, app)
+
+    //app.setState({ mazeIsGenerating: false })
 }
 
 const divide = (x, y, width, height, orientation, totalDelay, delayOffset, app) => {
@@ -53,9 +55,6 @@ const divide = (x, y, width, height, orientation, totalDelay, delayOffset, app) 
             py = wy + getRandomInt(1, height - 1) 
     }
 
-    //const px = wx + (horizontal ? getRandomInt(1, width - 1) : 0)
-    //const py = wy + (horizontal ? 0 : getRandomInt(1, height - 1))
-
     const dx = horizontal ? 1 : 0
     const dy = horizontal ? 0 : 1
 
@@ -63,43 +62,34 @@ const divide = (x, y, width, height, orientation, totalDelay, delayOffset, app) 
 
     const dir = horizontal ? SOUTH : EAST
 
-    console.log("length: " + length)
-    console.log(app.state.numRows)
-    console.log(app.state.numCols)
-
     console.log("wx: " + wx)
     console.log("wy: " + wy)
     console.log("px: " + px)
     console.log("py: " + py)
-
-    console.log(app.state.grid)
+    console.log("divide time begin: " + totalDelay[0])
 
     for(let i = 0; i < length; i++) {
         if(wx !== px || wy !== py) {
             // grid[wy][wx] = WALL
-            console.log(wy + " " + wx + " = WALL" + " time: " + totalDelay[0])
+            //console.log(wy + " " + wx + " = WALL" + " time: " + totalDelay[0])
+
+            setTimeout(() => {
+                updateState(wy, wx, app)
+            }, totalDelay[0])
+
+            setTimeout(function(wy, wx, app) {
+                return updateState(wy, wx, app)
+            }, totalDelay[0], wy, wx, app)
 
             /*setTimeout(() => app.setState((prevState) => {
                 const newGrid = prevState.grid.map((row) => row.slice())
 
-                //if(wy < prevState.grid.numRows && wx < prevState.grid.numCols)
                     newGrid[wy][wx] = WALL
       
                 return {
                   grid: newGrid
                 }
-              }), totalDelay[0])*/
-
-            app.setState((prevState) => {
-                const newGrid = prevState.grid.map((row) => row.slice())
-                newGrid[wy][wx] = WALL
-      
-                return {
-                  grid: newGrid
-                }
-            })
-
-            //setTimeout(() => updateNode(wy, wx, WALL), totalDelay[0])
+              }), 0)*/
               
             totalDelay[0] += delayOffset
         
@@ -123,6 +113,25 @@ const divide = (x, y, width, height, orientation, totalDelay, delayOffset, app) 
     divide(nx, ny, w, h, chooseOrientation(w, h), totalDelay, delayOffset, app)
 }
 
+const updateState = (wy, wx, app) => {
+    //console.log(app)
+
+    app.setState((prevState) => {
+
+        //console.log(prevState.grid)
+        console.log(wy + " " + wx)
+        const newGrid = prevState.grid.map((row) => row.slice())
+
+        newGrid[wy][wx] = WALL
+
+        return {
+          grid: newGrid
+        }
+      })
+
+    console.log("hi")
+}
+
 const chooseOrientation = (w, h) => {
     if(w < h) {
         return HORIZONTAL;
@@ -141,13 +150,14 @@ const getRandomInt = (min, max) => {
     return Math.floor(Math.random() * (max - min)) + min
 }
 
-const mazeBorder = async (app, totalDelay, delayOffset, callback) => {
+const mazeBorder = (app, totalDelay, delayOffset) => {
     console.log("maze border")
 
     // Top Row and Bottom Row
 
     for(let j = 0; j < app.state.numCols; j++) {
-        await app.setState((prevState) => {
+        setTimeout(() => {
+            app.setState((prevState) => {
             const newGrid = prevState.grid.map((row) => row.slice())
             newGrid[0][j] = WALL
             newGrid[app.state.numRows - 1][j] = WALL
@@ -157,20 +167,19 @@ const mazeBorder = async (app, totalDelay, delayOffset, callback) => {
             }
           })
 
-          //setTimeout(() => updateNode(0, j, WALL), totalDelay[0])
-          totalDelay[0] += delayOffset
-          //setTimeout(() => updateNode(app.state.numRows - 1, j, WALL), totalDelay[0])
+          console.log("setting border")
+        }, totalDelay[0])
+
           totalDelay[0] += delayOffset
   
           console.log("border: " + totalDelay[0])
 
-          //totalDelay[0] += delayOffset
     }
 
     // Left Col and Right Col
 
     for(let i = 0; i < app.state.numRows; i++) {
-        await app.setState((prevState) => {
+        setTimeout(() => {app.setState((prevState) => {
             const newGrid = prevState.grid.map((row) => row.slice())
             newGrid[i][0] = WALL
             newGrid[i][app.state.numCols - 1] = WALL
@@ -179,16 +188,21 @@ const mazeBorder = async (app, totalDelay, delayOffset, callback) => {
               grid: newGrid
             }
           })
+          
+          console.log("setting border")
+        }, totalDelay[0])
 
-          //setTimeout(() => updateNode(i, 0, WALL), totalDelay[0])
-          totalDelay[0] += delayOffset
-          //setTimeout(() => updateNode(i, app.state.numCols - 1, WALL), totalDelay[0])
           totalDelay[0] += delayOffset
 
           console.log("border: " + totalDelay[0])
     }
 
-    callback()
+    totalDelay[0] += delayOffset
+
+    console.log("callback time: " + totalDelay[0])
+    //setTimeout(() => callback(), totalDelay[0])
+
+    //callback()
 }
 
 const mazeDimensions = (app, totalDelay, delayOffset) => {
@@ -200,9 +214,6 @@ const mazeDimensions = (app, totalDelay, delayOffset) => {
     const newWidth = orgWidth % 2 == 0 ? Number(orgWidth) + 1 : orgWidth
     const newHeight = orgHeight % 2 == 0 ? Number(orgHeight) + 1 : orgHeight
 
-    console.log(orgWidth + " " + orgHeight)
-
-    //if(newWidth === orgWidth && newHeight === orgHeight) return
     app.setState(
         {
           numRows: newHeight,
@@ -212,6 +223,10 @@ const mazeDimensions = (app, totalDelay, delayOffset) => {
           colInput: "",
           mazeIsGenerating: true
         }, 
-        () => mazeBorder(app, totalDelay, delayOffset, () => divide(0, 0, app.state.numCols-1, app.state.numRows-1, VERTICAL, totalDelay, delayOffset, app))
+        () => {
+            //mazeBorder(app, totalDelay, delayOffset, () => divide(0, 0, app.state.numCols-1, app.state.numRows-1, VERTICAL, totalDelay, delayOffset, app))
+            mazeBorder(app, totalDelay, delayOffset)
+            divide(0, 0, app.state.numCols-1, app.state.numRows-1, VERTICAL, totalDelay, delayOffset, app)
+        }
     )
 }
