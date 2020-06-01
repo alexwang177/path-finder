@@ -20,7 +20,7 @@ export const generateMaze = (app) => {
     //app.setState({ mazeIsGenerating: false })
 }
 
-const divide = (x, y, width, height, orientation, totalDelay, delayOffset, app) => {
+const divide = async (x, y, width, height, orientation, totalDelay, delayOffset, app) => {
     if(width <= 2 || height <= 2) return
 
     const horizontal = orientation === HORIZONTAL
@@ -73,10 +73,6 @@ const divide = (x, y, width, height, orientation, totalDelay, delayOffset, app) 
             // grid[wy][wx] = WALL
             //console.log(wy + " " + wx + " = WALL" + " time: " + totalDelay[0])
 
-            setTimeout(() => {
-                updateState(wy, wx, app)
-            }, totalDelay[0])
-
             setTimeout(function(wy, wx, app) {
                 return updateState(wy, wx, app)
             }, totalDelay[0], wy, wx, app)
@@ -104,13 +100,13 @@ const divide = (x, y, width, height, orientation, totalDelay, delayOffset, app) 
     let w = horizontal ? width : wx - x + 1
     let h = horizontal ? wy - y + 1 : height
 
-    divide(nx, ny, w, h, chooseOrientation(w, h), totalDelay, delayOffset, app)
+    await divide(nx, ny, w, h, chooseOrientation(w, h), totalDelay, delayOffset, app)
 
     nx = horizontal ? x : wx + 1
     ny = horizontal ? wy + 1 : y
     w = horizontal ? width : x + width - wx - 1
     h = horizontal ? y + height - wy - 1 : height
-    divide(nx, ny, w, h, chooseOrientation(w, h), totalDelay, delayOffset, app)
+    await divide(nx, ny, w, h, chooseOrientation(w, h), totalDelay, delayOffset, app)
 }
 
 const updateState = (wy, wx, app) => {
