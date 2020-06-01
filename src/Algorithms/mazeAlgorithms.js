@@ -12,7 +12,17 @@ export const generateMaze = async (app) => {
     mazeBorder(app, totalDelay, delayOffset)
 
     // Generate rest of maze
-    divide(1, 1, app.state.numCols - 2, app.state.numRows - 2, VERTICAL, totalDelay, delayOffset, app)
+    const openGrid = []
+
+    /*for(let i = 0; i < app.state.numRows; i++){
+      const row = []
+      for(let j = 0; j < app.state.numCols; j++){
+        row.push(0)
+      }
+      openGrid.push(row)
+    }*/
+
+    divide(0, 0, app.state.numCols, app.state.numRows, HORIZONTAL, totalDelay, delayOffset, app)
 }
 
 const divide = (x, y, width, height, orientation, totalDelay, delayOffset, app) => {
@@ -20,11 +30,28 @@ const divide = (x, y, width, height, orientation, totalDelay, delayOffset, app) 
 
     const horizontal = orientation === HORIZONTAL
 
-    let wx = x + (horizontal ? 0 : getRandomInt(0, width - 2))
-    let wy = y + (horizontal ? getRandomInt(0, height - 2) : 0)
+    let wx = x
+    let wy = y
 
-    const px = wx + (horizontal ? getRandomInt(0, width) : 0)
-    const py = wy + (horizontal ? 0 : getRandomInt(0, height))
+    if(horizontal) {
+        while(wy % 2 !== 0) wy = y + getRandomInt(0, height - 2)
+    }
+    else{
+        while(wx % 2 !== 0) wx = x + getRandomInt(0, width - 2)
+    }
+
+    let px = wx
+    let py = wy
+
+    if(horizontal) {
+        while(py % 2 !== 0) py = wy + getRandomInt(1, height - 1)
+    }
+    else{
+        while(px % 2 !== 0) px = wx + getRandomInt(1, width - 1) 
+    }
+
+    //const px = wx + (horizontal ? getRandomInt(1, width - 1) : 0)
+    //const py = wy + (horizontal ? 0 : getRandomInt(1, height - 1))
 
     const dx = horizontal ? 1 : 0
     const dy = horizontal ? 0 : 1
@@ -33,24 +60,36 @@ const divide = (x, y, width, height, orientation, totalDelay, delayOffset, app) 
 
     const dir = horizontal ? SOUTH : EAST
 
+    console.log("length: " + length)
+
     for(let i = 0; i < length; i++) {
         if(wx !== px || wy !== py) {
             // grid[wy][wx] = WALL
+            console.log(wy + " " + wx + " = WALL")
 
-            setTimeout(() => app.setState((prevState) => {
+            /*setTimeout(() => app.setState((prevState) => {
                 const newGrid = prevState.grid.map((row) => row.slice())
                 newGrid[wy][wx] = WALL
       
                 return {
                   grid: newGrid
                 }
-              }), totalDelay[0])
+              }), 0)*/
+
+              app.setState((prevState) => {
+                const newGrid = prevState.grid.map((row) => row.slice())
+                newGrid[wy][wx] = WALL
+      
+                return {
+                  grid: newGrid
+                }
+              })
               
             totalDelay[0] += delayOffset
-            
-            wx += dx
-            wy += dy
+        
         }
+        wx += dx
+        wy += dy
     }
 
     let nx = x
@@ -87,6 +126,8 @@ const getRandomInt = (min, max) => {
 }
 
 const mazeBorder = (app, totalDelay, delayOffset) => {
+    console.log("maze border")
+
     // Top Row and Bottom Row
 
     for(let j = 0; j < app.state.numCols; j++) {
