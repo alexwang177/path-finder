@@ -1,3 +1,5 @@
+import { WALL } from "../../Constants/constants"
+
 export const handleClick = (props) => {
     const location = props.location.split(" ")
 
@@ -24,4 +26,16 @@ export const handleMouseLeave = (e, props) => {
         isHover: false
     })*/
     e.target.classList.remove(props.marker + "-hover")
+}
+
+export const updateNode = (row, col, value) => {
+    const node = document.getElementById(row + " " + col)
+
+    switch(value) {
+        case WALL:
+            node.classList.add("wall-node")
+            break
+        default: 
+            break
+    }
 }

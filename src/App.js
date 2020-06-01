@@ -31,7 +31,8 @@ class App extends React.Component {
       speed: "moderate",
       rowInput: "",
       colInput: "",
-      mouseIsDown: false
+      mouseIsDown: false,
+      mazeIsGenerating: false
     }
   }
 
@@ -98,6 +99,7 @@ class App extends React.Component {
           handleNodeClick={this.handleNodeClick}
           handleMouseEnter={this.handleMouseEnter}
           updateGrid={this.updateGrid}
+          mazeIsGenerating={this.state.mazeIsGenerating}
         />
         <h1>{this.state.numRows + " " + this.state.numCols}</h1>
       </div>

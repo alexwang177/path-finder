@@ -17,6 +17,7 @@ function Board(props) {
                         nodeValue={props.grid[rowIndex][colIndex]}
                         handleNodeClick={props.handleNodeClick}
                         handleMouseEnter={props.handleMouseEnter}
+                        mazeIsGenerating={props.mazeIsGenerating}
                         />)
         })
 

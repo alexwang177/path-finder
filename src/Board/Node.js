@@ -71,6 +71,7 @@ class Node extends React.Component {
 
         return(
             <div
+                id={this.props.location}
                 className={className} 
                 onMouseEnter={this.handleMouseEnter} 
                 onMouseLeave={this.handleMouseLeave}
