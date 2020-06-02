@@ -66,7 +66,7 @@ html, body {
     height: 30px;
     width: 30px;
     background-color: whitesmoke;
-    border: 1px solid rgb(240, 194, 194);
+    border: 1px solid rgb(252, 223, 223);
     margin: 0;
 }
 
@@ -93,6 +93,7 @@ html, body {
 
 .wall-node {
     background-color: rgb(63, 63, 63);
+    border: 1px solid rgb(63, 63, 63);
     animation-name: wall-animation;
     animation-duration: 0.5s;
 }
