@@ -63,8 +63,8 @@ html, body {
 
 /* Node CSS */
 .node-div {
-    height: 20px;
-    width: 20px;
+    height: 30px;
+    width: 30px;
     background-color: whitesmoke;
     border: 1px solid rgb(240, 194, 194);
     margin: 0;
@@ -79,7 +79,8 @@ html, body {
 }
 
 .wall-hover {
-    background-color: black;
+    background-color: rgb(63, 63, 63);
+    animation-name: wall-animation;
 }
 
 .start-node {
@@ -91,18 +92,38 @@ html, body {
 }
 
 .wall-node {
-    background-color: black;
+    background-color: rgb(63, 63, 63);
+    animation-name: wall-animation;
+    animation-duration: 0.5s;
+}
+
+@keyframes wall-animation {
+    50% {transform: scale(1.2, 1.2)}
 }
 
 .visited-node {
     background: turquoise;
+    border-radius: 0%;
     animation-name: visited-animation;
     animation-duration: 2s;
 }
 
 @keyframes visited-animation {
-    0% {background-color: whitesmoke}
-    100% {background-color: turquoise}
+    0% 
+    {
+        background-color: whitesmoke;
+    }
+
+    50% 
+    {
+        background-color: greenyellow;
+        transform: scale(1.1, 1.1);
+    }
+
+    100% 
+    {
+        background-color: turquoise;
+    }
 }
 
 .path-node {
@@ -113,5 +134,6 @@ html, body {
 
 @keyframes path-animation {
     0% {background-color: whitesmoke}
+    50% {transform: scale(1.1, 1.1)}
     100% {background-color: rgb(203, 87, 238)}
 }

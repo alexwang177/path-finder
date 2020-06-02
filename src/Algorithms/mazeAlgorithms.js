@@ -7,7 +7,7 @@ export const generateMaze = (app) => {
 
     // Timing of maze generation
     let totalDelay = [0]
-    let delayOffset = 50
+    let delayOffset = 20
 
     mazeDimensions(app, totalDelay, delayOffset)
 
