@@ -11,6 +11,8 @@ export const handleMouseUp = (app) => {
 export const handleMouseEnter = (rowIndex, colIndex, app) => {
     if(!app.state.mouseIsDown) return
 
+    if(app.state.grid[rowIndex][colIndex] === START || app.state.grid[rowIndex][colIndex] === END) return
+
     app.setState((prevState) => {
       const newGrid = prevState.grid.map((row) => row.slice())
 
@@ -28,10 +30,12 @@ export const handleMouseEnter = (rowIndex, colIndex, app) => {
 }
 
 export const handleNodeClick = (rowIndex, colIndex, app) => {
+  if(app.state.grid[rowIndex][colIndex] === START || app.state.grid[rowIndex][colIndex] === END) return
+
     app.setState((prevState) => {
       const newGrid = prevState.grid.map((row) => row.slice())
 
-      if(prevState.marker === "start") {
+      /*if(prevState.marker === "start") {
         for(let i = 0; i < newGrid.length; i++){
           for(let j = 0; j < newGrid[0].length; j++){
             if(newGrid[i][j] === START)
@@ -51,8 +55,8 @@ export const handleNodeClick = (rowIndex, colIndex, app) => {
 
         newGrid[rowIndex][colIndex] = END
 
-      }
-      else if(prevState.marker === "wall") {
+      }*/
+      if(prevState.marker === "wall") {
 
         newGrid[rowIndex][colIndex] === WALL ? 
           newGrid[rowIndex][colIndex] = EMPTY :

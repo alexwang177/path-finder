@@ -118,7 +118,8 @@ const updateState = (wy, wx, app) => {
         console.log(wy + " " + wx)
         const newGrid = prevState.grid.map((row) => row.slice())
 
-        newGrid[wy][wx] = WALL
+        if(prevState.grid[wy][wx] !== START && prevState.grid[wy][wx] !== END)
+            newGrid[wy][wx] = WALL
 
         return {
           grid: newGrid
@@ -171,8 +172,11 @@ const mazeBorder = (app, totalDelay, delayOffset) => {
         setTimeout(() => {
             app.setState((prevState) => {
             const newGrid = prevState.grid.map((row) => row.slice())
-            newGrid[0][j] = WALL
-            newGrid[app.state.numRows - 1][j] = WALL
+
+            if(prevState.grid[0][j] !== START && prevState.grid[0][j] !== END)
+                newGrid[0][j] = WALL
+            if(prevState.grid[app.state.numRows - 1][j] !== START && prevState.grid[app.state.numRows - 1][j] !== END)
+                newGrid[app.state.numRows - 1][j] = WALL
   
             return {
               grid: newGrid
@@ -193,8 +197,11 @@ const mazeBorder = (app, totalDelay, delayOffset) => {
     for(let i = 0; i < app.state.numRows; i++) {
         setTimeout(() => {app.setState((prevState) => {
             const newGrid = prevState.grid.map((row) => row.slice())
-            newGrid[i][0] = WALL
-            newGrid[i][app.state.numCols - 1] = WALL
+
+            if(prevState.grid[i][0] !== START && prevState.grid[i][0] !== END)
+                newGrid[i][0] = WALL
+            if(prevState.grid[i][app.state.numCols - 1] !== START && prevState.grid[i][app.state.numCols - 1] !== END)    
+                newGrid[i][app.state.numCols - 1] = WALL
   
             return {
               grid: newGrid

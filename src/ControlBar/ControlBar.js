@@ -36,13 +36,13 @@ function ControlBar(props) {
 
             <button className="button" id="visualize-button" onClick={props.visualize}>Visualize {props.algorithm.toUpperCase()}</button>
 
-            <div className="control-bar-selectors" id="mark-selector">
+            {/*<div className="control-bar-selectors" id="mark-selector">
                 <select name="marker" value={props.marker} onChange={props.handleFormChange}> 
                     <option value="start">Start</option>
                     <option value="end">End</option>
                     <option value="wall">Wall</option>
                 </select>
-            </div>
+            </div>*/}
 
             <div className="select-container">
                 <label className="select-label">Speed</label>

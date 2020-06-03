@@ -28,7 +28,7 @@ class App extends React.Component {
       grid: this.createGrid(initRows, initCols),
       algorithm: "dfs",
       maze: "rmd",
-      marker: "start",
+      marker: "wall",
       speed: "moderate",
       rowInput: "",
       colInput: "",
@@ -87,6 +87,8 @@ class App extends React.Component {
     setTimeout(() => {
         target.style.display = "block"
     }, 0)
+
+    this.setState({mouseIsDown: true})
   }
 
   drop = (e) => {
@@ -134,7 +136,8 @@ class App extends React.Component {
       newGrid[row][col] = pointValue
 
       return {
-        grid: newGrid
+        grid: newGrid,
+        mouseIsDown: false
       }
     })
 
@@ -171,6 +174,7 @@ class App extends React.Component {
           drop={this.drop}
           dragStart={this.dragStart}
         />
+        <h1>{this.state.mouseIsDown ? "down" : "up"}</h1>
       </div>
     )
   }
