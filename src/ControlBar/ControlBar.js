@@ -9,7 +9,7 @@ function ControlBar(props) {
                 <h1>Visualizer</h1>
             </div>
 
-            <div className="control-bar-selectors" id="algo-selector">
+            <div className="select control-bar-selectors" id="algo-selector">
                 <select name="algorithm" value={props.algorithm} onChange={props.handleFormChange}> 
                     <option value="dfs">Depth-First Search</option>
                     <option value="bfs">Breadth-First Search</option>
@@ -18,7 +18,7 @@ function ControlBar(props) {
                 </select>
             </div>
 
-            <div className="control-bar-selectors" id="maze-selector">
+            <div className="select control-bar-selectors" id="maze-selector">
                 <select name="maze" value={props.maze} onChange={props.handleFormChange}> 
                     <option value="rmd">Recursive Maze Division</option>
                     <option value="rmd-vs">Vertical Skew</option>
@@ -36,7 +36,7 @@ function ControlBar(props) {
                 </select>
             </div>
 
-            <div className="control-bar-selectors" id="speed-selector">
+            <div className="select control-bar-selectors" id="speed-selector">
                 <select name="speed" value={props.speed} onChange={props.handleFormChange}> 
                     <option value="slow">Slow</option>
                     <option selected="selected" value="moderate">Moderate</option>
