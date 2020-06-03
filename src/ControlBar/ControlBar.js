@@ -58,17 +58,13 @@ function ControlBar(props) {
 
             <div>
                 <div className="control-bar-selectors" id="grid-selector">
-                    <label>
-                        # Rows 
-                        <input type="text" name="rowInput" value={props.rowInput} onChange={props.handleFormChange}/>
-                    </label>
+                        <input placeholder="# Rows" className="effect-1" type="text" name="rowInput" value={props.rowInput} onChange={props.handleFormChange}/>
+                        <span className="focus-border"></span>
                 </div>
 
                 <div className="control-bar-selectors" id="grid-selector">
-                    <label>
-                        # Columns 
-                        <input type="text" name="colInput" value={props.colInput} onChange={props.handleFormChange}/>
-                    </label>
+                        <input placeholder="# Columns" className="effect-1" type="text" name="colInput" value={props.colInput} onChange={props.handleFormChange}/>
+                        <span className="focus-border"></span>
                 </div>
             </div>
 

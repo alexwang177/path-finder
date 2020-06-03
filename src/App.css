@@ -107,11 +107,28 @@ select {
     background-color:#6622a5;
 }
 
-/*#algo-selector {
+.effect-1{
+    border: 0; 
+    padding: 7px 0; 
+    border-bottom: 2px solid rgb(196, 103, 103);
+    background-color: teal;
 }
 
-#grid-selector {
-}*/
+.effect-1 ~ .focus-border{position: absolute; bottom: 0; left: 0; width: 0; height: 2px; background-color: rgb(225, 230, 236); transition: 0.4s;}
+.effect-1:focus ~ .focus-border{width: 100%; transition: 0.4s;}
+
+::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: white;
+    opacity: 1; /* Firefox */
+  }
+  
+  :-ms-input-placeholder { /* Internet Explorer 10-11 */
+    color: red;
+  }
+  
+  ::-ms-input-placeholder { /* Microsoft Edge */
+    color: red;
+  }
 
 /* Board CSS */
 .board-container {
