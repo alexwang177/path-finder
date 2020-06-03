@@ -174,7 +174,6 @@ class App extends React.Component {
           drop={this.drop}
           dragStart={this.dragStart}
         />
-        <h1>{this.state.mouseIsDown ? "down" : "up"}</h1>
       </div>
     )
   }
