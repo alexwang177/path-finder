@@ -101,7 +101,6 @@ class App extends React.Component {
           updateGrid={this.updateGrid}
           mazeIsGenerating={this.state.mazeIsGenerating}
         />
-        <h1>{this.state.maze}</h1>
       </div>
     )
   }
