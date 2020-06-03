@@ -23,12 +23,15 @@ html, body {
     justify-content: space-around;
     align-items: center;
 
+    flex-wrap: wrap;
+
     font-size: 10px;
     
 }
 
 .control-bar-selectors {
-    font-size: 15px;
+    font-size: 1.5em;
+    margin: 0.5em;
 }
 
 select {
@@ -54,7 +57,7 @@ select {
  .select {
     position: relative;
     display: flex;
-    width: 12em;
+    width: 11.5em;
     height: 3em;
     line-height: 3;
     background: #5c6664;
@@ -152,8 +155,8 @@ select {
 
 /* Node CSS */
 .node-div {
-    height: 25px;
-    width: 25px;
+    height: 3vh;
+    width: 1.5vw;
     background-color: whitesmoke;
     border: 1px solid rgb(252, 223, 223);
     margin: 0;
@@ -178,13 +181,13 @@ select {
 
 #start-point {
     background-color: green;
-    width: 25px;
-    height: 25px;
+    height: 3vh;
+    width: 1.5vw;
 }
 #end-point {
     background-color: red;
-    width: 25px;
-    height: 25px;
+    height: 3vh;
+    width: 1.5vw;
 }
 
 .end-node {
