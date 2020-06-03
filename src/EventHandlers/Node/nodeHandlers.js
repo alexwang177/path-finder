@@ -11,7 +11,8 @@ export const handleClick = (props) => {
 
 export const handleMouseEnter = (e, props) => {
 
-    e.target.classList.add(props.marker + "-hover")
+    if(props.marker === "wall")
+        e.target.classList.add(props.marker + "-hover")
 
     const location = props.location.split(" ")
 
@@ -25,7 +26,8 @@ export const handleMouseLeave = (e, props) => {
     /*this.setState({
         isHover: false
     })*/
-    e.target.classList.remove(props.marker + "-hover")
+    if(props.marker === "wall")
+        e.target.classList.remove(props.marker + "-hover")
 }
 
 export const updateNode = (row, col, value) => {

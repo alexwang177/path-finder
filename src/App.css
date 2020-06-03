@@ -173,7 +173,7 @@ select {
 }
 
 .start-node {
-    background-color: green;
+    /*background-color: green;*/
 }
 
 #start-point {
@@ -181,9 +181,14 @@ select {
     width: 25px;
     height: 25px;
 }
+#end-point {
+    background-color: red;
+    width: 25px;
+    height: 25px;
+}
 
 .end-node {
-    background-color: red;
+    /*background-color: red;*/
 }
 
 .wall-node {

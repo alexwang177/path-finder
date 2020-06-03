@@ -85,7 +85,8 @@ class Node extends React.Component {
                 onDrop={this.props.drop}
                 onDragOver={this.dragOver}
             >
-                {this.props.nodeValue === START ? <Point id="start-point"/> : null}
+                {this.props.nodeValue === START ? <Point id="start-point" dragStart={this.props.dragStart}/> : null}
+                {this.props.nodeValue === END ? <Point id="end-point" dragStart={this.props.dragStart}/> : null}
             </div>
         )
     }

@@ -2,7 +2,7 @@ import React from 'react'
 
 function Point(props) {
 
-    const dragStart = (e) => {
+    /*const dragStart = (e) => {
         const target = e.target
 
         e.dataTransfer.setData("pointID", target.id)
@@ -14,7 +14,7 @@ function Point(props) {
         setTimeout(() => {
             target.style.display = "block"
         }, 0)
-    }
+    }*/
 
     const dragOver = (e) => {
         e.stopPropagation()
@@ -24,7 +24,7 @@ function Point(props) {
         <div
             id={props.id}
             draggable={true}
-            onDragStart={dragStart}
+            onDragStart={props.dragStart}
             onDragOver={dragOver}
         >
         </div>

@@ -75,6 +75,20 @@ class App extends React.Component {
 
   // Drag and Drop Start and End Nodes
 
+  dragStart = (e) => {
+    const target = e.target
+
+    e.dataTransfer.setData("pointID", target.id)
+
+    setTimeout(() => {
+        target.style.display = "none"
+    }, 0)
+
+    setTimeout(() => {
+        target.style.display = "block"
+    }, 0)
+  }
+
   drop = (e) => {
     e.preventDefault()
 
@@ -83,20 +97,29 @@ class App extends React.Component {
     const pointID = e.dataTransfer.getData("pointID")
 
     const point = document.getElementById(pointID)
+
+    console.log(point)
+
     point.style.display = "block"
 
     const loc = e.target.id.split(" ")
     const row = loc[0]
     const col = loc[1]
 
-    let startRow = 0
-    let startCol = 0
+    let pointRow = 0
+    let pointCol = 0
+
+    let pointValue = 0
+    if(pointID === "start-point")
+      pointValue = START
+    else if(pointID === "end-point")
+      pointValue = END
 
     for(let i = 0; i < this.state.grid.length; i++){
       for(let j = 0; j < this.state.grid[0].length; j++){
-        if(this.state.grid[i][j] === START) {
-          startRow = i
-          startCol = j
+        if(this.state.grid[i][j] === pointValue) {
+          pointRow = i
+          pointCol = j
         }
       }
     }
@@ -107,8 +130,8 @@ class App extends React.Component {
     this.setState((prevState) => {
       const newGrid = prevState.grid.map((row) => row.slice())
 
-      newGrid[startRow][startCol] = EMPTY
-      newGrid[row][col] = START
+      newGrid[pointRow][pointCol] = EMPTY
+      newGrid[row][col] = pointValue
 
       return {
         grid: newGrid
@@ -146,6 +169,7 @@ class App extends React.Component {
           updateGrid={this.updateGrid}
           mazeIsGenerating={this.state.mazeIsGenerating}
           drop={this.drop}
+          dragStart={this.dragStart}
         />
       </div>
     )

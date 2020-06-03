@@ -19,6 +19,7 @@ function Board(props) {
                         handleMouseEnter={props.handleMouseEnter}
                         mazeIsGenerating={props.mazeIsGenerating}
                         drop={props.drop}
+                        dragStart={props.dragStart}
                         />)
         })
 
