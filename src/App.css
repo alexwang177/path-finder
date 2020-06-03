@@ -28,17 +28,13 @@ html, body {
 }
 
 .control-bar-selectors {
-    background-color: red;
-
     font-size: 15px;
 }
 
 #algo-selector {
-    background-color: blue;
 }
 
 #grid-selector {
-    background-color: green;
 }
 
 /* Board CSS */

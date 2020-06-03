@@ -100,13 +100,13 @@ const divide = async (x, y, width, height, orientation, totalDelay, delayOffset,
     let w = horizontal ? width : wx - x + 1
     let h = horizontal ? wy - y + 1 : height
 
-    await divide(nx, ny, w, h, chooseOrientation(w, h), totalDelay, delayOffset, app)
+    await divide(nx, ny, w, h, chooseOrientation(w, h, app), totalDelay, delayOffset, app)
 
     nx = horizontal ? x : wx + 1
     ny = horizontal ? wy + 1 : y
     w = horizontal ? width : x + width - wx - 1
     h = horizontal ? y + height - wy - 1 : height
-    await divide(nx, ny, w, h, chooseOrientation(w, h), totalDelay, delayOffset, app)
+    await divide(nx, ny, w, h, chooseOrientation(w, h, app), totalDelay, delayOffset, app)
 }
 
 const updateState = (wy, wx, app) => {
@@ -128,14 +128,30 @@ const updateState = (wy, wx, app) => {
     console.log("hi")
 }
 
-const chooseOrientation = (w, h) => {
-    if(w < h) {
-        return HORIZONTAL;
-    } else if (h < w) {
-        return VERTICAL;
-    } else {
-        //return rand.nextInt(2) + 1;
-        return getRandomInt(0, 2) + 1
+const chooseOrientation = (w, h, app) => {
+    if(app.state.maze === "rmd") {
+        if(w < h) {
+            return HORIZONTAL;
+        } else if (h < w) {
+            return VERTICAL;
+        } else {
+            //return rand.nextInt(2) + 1;
+            return getRandomInt(0, 2) + 1
+        }
+    }
+    else if(app.state.maze === "rmd-hs") {
+        const num = getRandomInt(0, 10)
+
+        if(num <= 1) return VERTICAL
+    
+        return HORIZONTAL
+    }
+    else if(app.state.maze === 'rmd-vs') {
+        const num = getRandomInt(0, 10)
+
+        if(num <= 1) return HORIZONTAL
+    
+        return VERTICAL
     }
 }
 
@@ -210,6 +226,8 @@ const mazeDimensions = (app, totalDelay, delayOffset) => {
     const newWidth = orgWidth % 2 == 0 ? Number(orgWidth) + 1 : orgWidth
     const newHeight = orgHeight % 2 == 0 ? Number(orgHeight) + 1 : orgHeight
 
+    const orientation = app.state.maze === "rmd-hs" ? HORIZONTAL : VERTICAL
+
     app.setState(
         {
           numRows: newHeight,
@@ -222,7 +240,7 @@ const mazeDimensions = (app, totalDelay, delayOffset) => {
         () => {
             //mazeBorder(app, totalDelay, delayOffset, () => divide(0, 0, app.state.numCols-1, app.state.numRows-1, VERTICAL, totalDelay, delayOffset, app))
             mazeBorder(app, totalDelay, delayOffset)
-            divide(0, 0, app.state.numCols-1, app.state.numRows-1, VERTICAL, totalDelay, delayOffset, app)
+            divide(0, 0, app.state.numCols-1, app.state.numRows-1, orientation, totalDelay, delayOffset, app)
         }
     )
 }

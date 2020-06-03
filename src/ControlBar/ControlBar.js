@@ -21,6 +21,8 @@ function ControlBar(props) {
             <div className="control-bar-selectors" id="maze-selector">
                 <select name="maze" value={props.maze} onChange={props.handleFormChange}> 
                     <option value="rmd">Recursive Maze Division</option>
+                    <option value="rmd-vs">Vertical Skew</option>
+                    <option value="rmd-hs">Horizontal Skew</option>
                 </select>
             </div>
 
