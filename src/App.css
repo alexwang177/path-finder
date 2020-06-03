@@ -176,6 +176,12 @@ select {
     background-color: green;
 }
 
+#start-point {
+    background-color: green;
+    width: 25px;
+    height: 25px;
+}
+
 .end-node {
     background-color: red;
 }

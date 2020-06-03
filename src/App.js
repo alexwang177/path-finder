@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactDOM from 'react-dom'
 
 import ControlBar from './ControlBar/ControlBar'
 import Board from './Board/Board'
@@ -72,6 +73,50 @@ class App extends React.Component {
 
   generateMaze = () => generateMaze(this)
 
+  // Drag and Drop Start and End Nodes
+
+  drop = (e) => {
+    e.preventDefault()
+
+    this.clearVisited()
+
+    const pointID = e.dataTransfer.getData("pointID")
+
+    const point = document.getElementById(pointID)
+    point.style.display = "block"
+
+    const loc = e.target.id.split(" ")
+    const row = loc[0]
+    const col = loc[1]
+
+    let startRow = 0
+    let startCol = 0
+
+    for(let i = 0; i < this.state.grid.length; i++){
+      for(let j = 0; j < this.state.grid[0].length; j++){
+        if(this.state.grid[i][j] === START) {
+          startRow = i
+          startCol = j
+        }
+      }
+    }
+
+    // Set previous start to nothing 
+    // Set new position to start
+
+    this.setState((prevState) => {
+      const newGrid = prevState.grid.map((row) => row.slice())
+
+      newGrid[startRow][startCol] = EMPTY
+      newGrid[row][col] = START
+
+      return {
+        grid: newGrid
+      }
+    })
+
+}
+
   componentDidMount = () => {
     window.addEventListener('mousedown', this.handleMouseDown)
     window.addEventListener('mouseup', this.handleMouseUp)
@@ -100,6 +145,7 @@ class App extends React.Component {
           handleMouseEnter={this.handleMouseEnter}
           updateGrid={this.updateGrid}
           mazeIsGenerating={this.state.mazeIsGenerating}
+          drop={this.drop}
         />
       </div>
     )

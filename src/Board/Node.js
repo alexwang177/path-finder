@@ -4,6 +4,8 @@ import { START, END, WALL, VISITED, EMPTY, PATH } from '../Constants/constants'
 import { handleClick, handleMouseEnter, handleMouseLeave } from '../EventHandlers/Node/nodeHandlers' 
 import { exportDefaultSpecifier } from '@babel/types'
 
+import Point from './Point'
+
 class Node extends React.Component {
 
     constructor() {
@@ -51,15 +53,19 @@ class Node extends React.Component {
         return className
     }
 
-    /*componentWillUpdate = (prevProps) => {
-        console.log("node updated")
+    /*drop = (e) => {
+        e.preventDefault()
+        const pointID = e.dataTransfer.getData("pointID")
 
-        if(prevProps.nodeValue !== VISITED && this.props.nodeValue === VISITED || prevProps.nodeValue !== PATH && this.props.nodeValue === PATH){
-            this.setState({ loading: true }, () => {
-                setTimeout(this.setState({ loading: false }), 5000)
-            })
-        }
+        const point = document.getElementById(pointID)
+        point.style.display = "block"
+
+        e.target.appendChild(point)
     }*/
+
+    dragOver = (e) => {
+        e.preventDefault()
+    }
 
     render() {
 
@@ -76,7 +82,10 @@ class Node extends React.Component {
                 onMouseEnter={this.handleMouseEnter} 
                 onMouseLeave={this.handleMouseLeave}
                 onClick={this.handleClick}
-            >    
+                onDrop={this.props.drop}
+                onDragOver={this.dragOver}
+            >
+                {this.props.nodeValue === START ? <Point id="start-point"/> : null}
             </div>
         )
     }
