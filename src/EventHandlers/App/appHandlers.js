@@ -35,27 +35,6 @@ export const handleNodeClick = (rowIndex, colIndex, app) => {
     app.setState((prevState) => {
       const newGrid = prevState.grid.map((row) => row.slice())
 
-      /*if(prevState.marker === "start") {
-        for(let i = 0; i < newGrid.length; i++){
-          for(let j = 0; j < newGrid[0].length; j++){
-            if(newGrid[i][j] === START)
-              newGrid[i][j] = EMPTY
-          }
-        }
-
-        newGrid[rowIndex][colIndex] = START
-      }
-      else if(prevState.marker === "end") {
-        for(let i = 0; i < newGrid.length; i++){
-          for(let j = 0; j < newGrid[0].length; j++){
-            if(newGrid[i][j] === END)
-              newGrid[i][j] = EMPTY
-          }
-        }
-
-        newGrid[rowIndex][colIndex] = END
-
-      }*/
       if(prevState.marker === "wall") {
 
         newGrid[rowIndex][colIndex] === WALL ? 
@@ -97,7 +76,7 @@ export const handleFormButton = (e, app) => {
 }
 
 const clearGrid = (app) => {
-  console.log("clear grid")
+  //console.log("clear grid")
 
   app.setState((prevState) => {
 

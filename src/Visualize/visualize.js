@@ -1,7 +1,7 @@
 import { START, END, WALL, VISITED, EMPTY } from '../Constants/constants'
 
 export const visualize = (app) => {
-    console.log("visualize")
+    //console.log("visualize")
 
     // Find Start Position (n^2) LOL
     let startRow = 0

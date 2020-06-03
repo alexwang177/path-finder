@@ -62,11 +62,11 @@ const divide = async (x, y, width, height, orientation, totalDelay, delayOffset,
 
     const dir = horizontal ? SOUTH : EAST
 
-    console.log("wx: " + wx)
-    console.log("wy: " + wy)
-    console.log("px: " + px)
-    console.log("py: " + py)
-    console.log("divide time begin: " + totalDelay[0])
+    //console.log("wx: " + wx)
+    //console.log("wy: " + wy)
+    //onsole.log("px: " + px)
+    //console.log("py: " + py)
+    //console.log("divide time begin: " + totalDelay[0])
 
     for(let i = 0; i < length; i++) {
         if(wx !== px || wy !== py) {
@@ -115,7 +115,7 @@ const updateState = (wy, wx, app) => {
     app.setState((prevState) => {
 
         //console.log(prevState.grid)
-        console.log(wy + " " + wx)
+        //console.log(wy + " " + wx)
         const newGrid = prevState.grid.map((row) => row.slice())
 
         if(prevState.grid[wy][wx] !== START && prevState.grid[wy][wx] !== END)
@@ -126,7 +126,7 @@ const updateState = (wy, wx, app) => {
         }
       })
 
-    console.log("hi")
+    //console.log("hi")
 }
 
 const chooseOrientation = (w, h, app) => {
@@ -164,7 +164,7 @@ const getRandomInt = (min, max) => {
 }
 
 const mazeBorder = (app, totalDelay, delayOffset) => {
-    console.log("maze border")
+    //console.log("maze border")
 
     // Top Row and Bottom Row
 
@@ -183,12 +183,12 @@ const mazeBorder = (app, totalDelay, delayOffset) => {
             }
           })
 
-          console.log("setting border")
+          //console.log("setting border")
         }, totalDelay[0])
 
           totalDelay[0] += delayOffset
   
-          console.log("border: " + totalDelay[0])
+          //console.log("border: " + totalDelay[0])
 
     }
 
@@ -208,24 +208,24 @@ const mazeBorder = (app, totalDelay, delayOffset) => {
             }
           })
           
-          console.log("setting border")
+          //console.log("setting border")
         }, totalDelay[0])
 
           totalDelay[0] += delayOffset
 
-          console.log("border: " + totalDelay[0])
+          //console.log("border: " + totalDelay[0])
     }
 
     totalDelay[0] += delayOffset
 
-    console.log("callback time: " + totalDelay[0])
+    //console.log("callback time: " + totalDelay[0])
     //setTimeout(() => callback(), totalDelay[0])
 
     //callback()
 }
 
 const mazeDimensions = (app, totalDelay, delayOffset) => {
-    console.log("maze dimensions")
+    //console.log("maze dimensions")
 
     const orgWidth = app.state.numCols
     const orgHeight = app.state.numRows

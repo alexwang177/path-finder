@@ -23,7 +23,7 @@ export const dfs = (startRow, startCol, endRow, endCol, visited, app) => {
 
       if(app.state.grid[row][col] === WALL) continue
 
-      console.log("visiting node...")
+      //console.log("visiting node...")
       visited[row][col] = true;
 
       if(row === endRow && col === endCol) {
@@ -45,7 +45,7 @@ export const dfs = (startRow, startCol, endRow, endCol, visited, app) => {
         totalDelay += delayOffset
       }
 
-        console.log(app.state.grid)
+        //console.log(app.state.grid)
 
         const dR = [-1, 0, 1, 0]
         const dC = [0, 1, 0, -1]
@@ -89,7 +89,7 @@ export const dfs = (startRow, startCol, endRow, endCol, visited, app) => {
 
       if(app.state.grid[row][col] === WALL) continue
 
-      console.log("bfs visiting node...")
+      //console.log("bfs visiting node...")
       visited[row][col] = true;
 
       if(row === endRow && col === endCol) {
@@ -134,7 +134,7 @@ export const dfs = (startRow, startCol, endRow, endCol, visited, app) => {
   }
 
   export const bidirectional = (startRow, startCol, endRow, endCol, visited, app) => {
-    console.log("bds")
+    //console.log("bds")
     let queueA = []
     let queueB = []
 
@@ -147,7 +147,7 @@ export const dfs = (startRow, startCol, endRow, endCol, visited, app) => {
     queueA.push([startRow, startCol])
     queueB.push([endRow, endCol])
 
-    console.log("start: " + startRow + " " + startCol)
+    //console.log("start: " + startRow + " " + startCol)
 
     let totalDelay = [0]
     const delayOffset = getSpeed(app.state.speed)
@@ -175,12 +175,12 @@ export const dfs = (startRow, startCol, endRow, endCol, visited, app) => {
 
   const bdsHelper = (queue, visitedSelf, visitedOther, startRow, startCol, endRow, endCol, totalDelay, delayOffset, parentMap, app) => {
     if(queue.length !== 0) {
-      console.log("bds helper")
+      //console.log("bds helper")
       const loc = queue.shift()
       const row = loc[0]
       const col = loc[1]
 
-      console.log(row + " " + col)
+      //console.log(row + " " + col)
 
       if(row < 0 || col < 0 || row >= app.state.numRows || col >= app.state.numCols) return false
 
@@ -212,7 +212,7 @@ export const dfs = (startRow, startCol, endRow, endCol, visited, app) => {
         const newC = col + dC[i]
 
         if(visitedOther.hasOwnProperty(newR + " " + newC)){
-          console.log("Meeting: " + newR + " " + newC)
+          //console.log("Meeting: " + newR + " " + newC)
 
           parentMap.set(newR + " " + newC + "alt", row + " " + col)
 
@@ -250,7 +250,7 @@ export const dfs = (startRow, startCol, endRow, endCol, visited, app) => {
   }
 
   export const getPathBDS = (parentMap, meetingRow, meetingCol, totalDelay, delayOffset, app) => {
-    console.log("PATH BDS")
+    //console.log("PATH BDS")
 
     let cur = meetingRow + " " + meetingCol
     let pathA = []
@@ -323,15 +323,15 @@ export const dfs = (startRow, startCol, endRow, endCol, visited, app) => {
   }
 
   export const getPath = (parentMap, endRow, endCol, totalDelay, delayOffset, app) => {
-    console.log("PATH")
+    //console.log("PATH")
 
-    console.log(parentMap)
+    //console.log(parentMap)
 
     let cur = endRow + " " + endCol
     let path = []
 
     while(parentMap.has(cur)) {
-        console.log(cur)
+        //console.log(cur)
 
         const loc = cur.split(" ")
         const row = loc[0]
