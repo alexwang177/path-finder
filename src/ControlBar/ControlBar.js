@@ -26,7 +26,7 @@ function ControlBar(props) {
                 </select>
             </div>
 
-            <button id="maze-button" onClick={props.generateMaze}>Generate Maze</button>
+            <button className="button" id="maze-button" onClick={props.generateMaze}>Generate Maze</button>
 
             <div className="control-bar-selectors" id="mark-selector">
                 <select name="marker" value={props.marker} onChange={props.handleFormChange}> 
@@ -57,14 +57,14 @@ function ControlBar(props) {
             </div>
 
             <div className="control-bar-selectors" id="grid-selector">
-                <button name="sizeButton" onClick={props.handleFormButton}>Update Grid Size</button>
+                <button className="button" name="sizeButton" onClick={props.handleFormButton}>Update Grid Size</button>
             </div>
 
             <div className="control-bar-selectors" id="grid-selector">
-                <button name="clearButton" onClick={props.handleFormButton}>Clear Grid</button>
+                <button className="button" name="clearButton" onClick={props.handleFormButton}>Clear Grid</button>
             </div>
 
-            <button id="visualize-button" onClick={props.visualize}>Visualize!</button>
+            <button className="button" id="visualize-button" onClick={props.visualize}>Visualize!</button>
         </header>
     )
 }
