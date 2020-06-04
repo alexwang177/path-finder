@@ -1,7 +1,7 @@
 html, body {
     height: 100%;
     margin: 0;
-    background-color: whitesmoke;
+    background-color: purple;
 }
 
 /* App Container CSS */
@@ -19,6 +19,8 @@ html, body {
 
     height: 100vh;
     flex-direction: column;
+
+    /*background-color: black;*/
 }
 
 /* Control Bar CSS*/
