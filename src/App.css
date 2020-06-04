@@ -186,6 +186,8 @@ select {
     padding: 5em;
 
     flex: 1 1 auto;
+
+    z-index: 1;
 }
 
 .board {
