@@ -22,6 +22,8 @@ html, body {
     grid-template-rows: 20% 80%;*/
     display: flex;
     flex-direction: column;
+
+    flex: 0 1 auto;
     
 }
 
@@ -38,7 +40,7 @@ html, body {
     -webkit-flex: 0;
     flex-shrink: 0;
 
-    background-color: rgb(6, 114, 114);
+    background-color: rgb(65, 228, 228);
     color: white;
     /*padding: 10px;*/
 
@@ -48,6 +50,8 @@ html, body {
     flex-wrap: wrap;
 
     font-size: 10px;
+
+    flex: 0 1 auto;
     
 }
 
@@ -182,7 +186,7 @@ select {
     display: flex;
 
     /*flex-grow: 1;*/
-    flex-shrink: 1;
+    /*flex-shrink: 1;*/
 
     display: flex;
     background-color: whitesmoke;
@@ -191,6 +195,8 @@ select {
 
     margin: 5em;
     padding: 5em;
+
+    flex: 0 1 auto;
 }
 
 .board {
