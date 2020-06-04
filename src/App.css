@@ -27,11 +27,18 @@ html, body {
 
 /* Control Bar CSS*/
 .control-bar {
-    background-color: teal;
+    -ms-box-orient: horizontal;
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -moz-flex;
+    display: -webkit-flex;
+    display: flex;
+
+    background-color: rgb(63, 102, 27);
     color: white;
     /*padding: 10px;*/
 
-    display: flex;
     justify-content: space-around;
     align-items: center;
 
@@ -68,6 +75,15 @@ select {
  }
  .select {
     position: relative;
+
+    -ms-box-orient: horizontal;
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -moz-flex;
+    display: -webkit-flex;
+    display: flex;
+
     display: flex;
     width: 11.5em;
     height: 3em;
@@ -92,6 +108,13 @@ select {
  }
 
  .select-container {
+    -ms-box-orient: horizontal;
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -moz-flex;
+    display: -webkit-flex;
+
      display: flex;
      flex-direction: column;
      align-items: center;
@@ -147,6 +170,14 @@ select {
 
 /* Board CSS */
 .board-container {
+    -ms-box-orient: horizontal;
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -moz-flex;
+    display: -webkit-flex;
+    display: flex;
+
     flex-grow: 1;
 
     display: flex;
@@ -165,6 +196,14 @@ select {
 }
 
 .grid-row {
+    -ms-box-orient: horizontal;
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -moz-flex;
+    display: -webkit-flex;
+    display: flex;
+
     display: flex;
 }
 
