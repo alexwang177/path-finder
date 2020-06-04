@@ -1,6 +1,6 @@
 This project is a simulator built in React that helps to visualize various pathfinding algorithms.
 
-Live Demo: 
+Live Demo: "https://alexwang177.github.io/path-finder/"
 
 ## Features
 
