@@ -35,7 +35,7 @@ html, body {
     display: -webkit-flex;
     display: flex;
 
-    background-color: teal;
+    background-color: rgb(56, 221, 221);
     color: white;
     /*padding: 10px;*/
 
@@ -179,7 +179,7 @@ select {
     display: flex;
 
     /*flex-grow: 1;*/
-    flex-shrink: 0;
+    flex-shrink: 1;
 
     display: flex;
     background-color: whitesmoke;
