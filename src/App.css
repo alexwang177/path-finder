@@ -40,7 +40,7 @@ html, body {
     -webkit-flex: 0;
     flex-shrink: 0;
 
-    background-color: rgb(65, 228, 228);
+    background-color: rgb(15, 75, 75);
     color: white;
     /*padding: 10px;*/
 
@@ -196,7 +196,7 @@ select {
     margin: 5em;
     padding: 5em;
 
-    flex: 0 1 auto;
+    flex-shrink: 0;
 }
 
 .board {
