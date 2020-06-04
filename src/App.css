@@ -1,7 +1,7 @@
 html, body {
     height: 100%;
     margin: 0;
-    background-color: purple;
+    background-color: rgb(197, 82, 197);
 }
 
 /* App Container CSS */
@@ -46,7 +46,7 @@ html, body {
 
     font-size: 10px;
 
-    flex: 1 1 auto;
+    flex: 1 0 auto;
     
 }
 
@@ -187,7 +187,7 @@ select {
     margin: 5em;
     padding: 5em;
 
-    flex: 1 1 auto;
+    flex: 1 0 auto;
 
     z-index: 1;
 }
@@ -206,7 +206,6 @@ select {
     display: -ms-flexbox;
     display: -moz-flex;
     display: -webkit-flex;
-    display: flex;
 
     display: flex;
 }
